@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OS detritus
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor crud
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local-only scratch (issues, drafts that shouldn't leave this machine)
+.scratch/private/

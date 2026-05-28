@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Field Manual vol.01 — Building a Pomodoro with Matt Pocock's Skills</title>
+  <meta name="description" content="A field guide for Claude Code users: build a real, working Pomodoro app, end to end, using Matt Pocock's skills. Every artifact is real. Tests run in the browser." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==================== FIXED CHROME ==================== -->
+  <a class="skip-link" href="#hero">skip to content</a>
+
+  <header class="masthead" role="banner">
+    <div class="masthead__inner">
+      <span class="masthead__brand">
+        <span class="rule"></span>
+        Field Manual <em>vol.01</em>
+      </span>
+      <nav class="masthead__nav" aria-label="Phases">
+        <a href="#phase-1" data-phase-link="1"><span>I</span> setup</a>
+        <a href="#phase-2" data-phase-link="2"><span>II</span> align</a>
+        <a href="#phase-3" data-phase-link="3"><span>III</span> spec</a>
+        <a href="#phase-4" data-phase-link="4"><span>IV</span> build</a>
+        <a href="#phase-5" data-phase-link="5"><span>V</span> maintain</a>
+        <a href="#phase-6" data-phase-link="6"><span>VI</span> handoff</a>
+      </nav>
+      <span class="masthead__meta"><span class="dot"></span> Pomodoro, real build</span>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero__grid">
+
+      <aside class="hero__marginalia" aria-hidden="true">
+        <p class="marginalia__line">classification —</p>
+        <p class="marginalia__line">a field guide</p>
+        <p class="marginalia__line">issued —</p>
+        <p class="marginalia__line">for engineers working</p>
+        <p class="marginalia__line">with claude code</p>
+        <p class="marginalia__line marginalia__line--sep">— x —</p>
+        <p class="marginalia__line">eight skills, in order.</p>
+        <p class="marginalia__line">one pomodoro timer,</p>
+        <p class="marginalia__line">built and tested.</p>
+      </aside>
+
+      <div class="hero__title">
+        <p class="hero__eyebrow">
+          <span class="hero__stamp">no.</span>
+          <span class="hero__num">01</span>
+          ·
+          building with mattpocock/skills
+        </p>
+        <h1 class="hero__h1">
+          <span class="hero__h1-line">The</span>
+          <span class="hero__h1-line hero__h1-line--accent">Journey.</span>
+        </h1>
+        <p class="hero__sub">
+          One afternoon, eight skills, and a working Pomodoro timer you can actually use — embedded inline in Phase IV, with the same tests this page cites running in <a href="tests.html">tests.html</a>. Every artifact is real.
+        </p>
+
+        <div class="hero__byline">
+          <span>compiled from <a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">mattpocock/skills</a> · <a href="#provenance">hardened against 10 of Matt&#39;s videos</a></span>
+          <span class="hero__byline-sep">·</span>
+          <span>est. read 25 min · <a href="tests.html">run the tests →</a></span>
+          <span class="hero__byline-sep">·</span>
+          <a href="#failure-modes" class="hero__begin">begin reading ↓</a>
+        </div>
+      </div>
+
+      <!-- Journey diagram, SVG -->
+      <figure class="hero__diagram" aria-label="The six phases of the journey">
+        <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" class="diagram-svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <pattern id="grain" patternUnits="userSpaceOnUse" width="3" height="3">
+              <circle cx="1" cy="1" r="0.4" fill="currentColor" opacity="0.18"/>
+            </pattern>
+            <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+            </marker>
+          </defs>
+
+          <!-- baseline rule -->
+          <line x1="40" y1="140" x2="680" y2="140" stroke="var(--ink)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.55"/>
+
+          <!-- main route -->
+          <path class="route" d="M 50 140 Q 110 60, 170 140 T 290 140 T 410 140 T 530 140 T 670 140"
+                fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" marker-end="url(#arrowhead)"/>
+
+          <!-- waypoints -->
+          <g class="waypoints" font-family="'JetBrains Mono', monospace" font-size="11" fill="var(--ink)">
+            <g transform="translate(50,140)">
+              <circle r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4"/>
+              <text y="-18" text-anchor="middle" font-weight="700">I</text>
+              <text y="28" text-anchor="middle">setup</text>
+            </g>
+            <g transform="translate(170,140)">
+              <circle r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4"/>
+              <text y="-18" text-anchor="middle" font-weight="700">II</text>
+              <text y="28" text-anchor="middle">align</text>
+            </g>
+            <g transform="translate(290,140)">
+              <circle r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4"/>
+              <text y="-18" text-anchor="middle" font-weight="700">III</text>
+              <text y="28" text-anchor="middle">spec</text>
+            </g>
+            <g transform="translate(410,140)">
+              <circle r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4"/>
+              <text y="-18" text-anchor="middle" font-weight="700">IV</text>
+              <text y="28" text-anchor="middle">build</text>
+            </g>
+            <g transform="translate(530,140)">
+              <circle r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4"/>
+              <text y="-18" text-anchor="middle" font-weight="700">V</text>
+              <text y="28" text-anchor="middle">maintain</text>
+            </g>
+            <g transform="translate(650,140)">
+              <circle r="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.4"/>
+              <text y="-18" text-anchor="middle" font-weight="700">VI</text>
+              <text y="28" text-anchor="middle">handoff</text>
+            </g>
+          </g>
+
+          <!-- annotations -->
+          <text x="50" y="200" font-family="'Newsreader', serif" font-style="italic" font-size="11" fill="var(--ink)" opacity="0.7">monday, 09:14</text>
+          <text x="650" y="200" font-family="'Newsreader', serif" font-style="italic" font-size="11" fill="var(--ink)" text-anchor="end" opacity="0.7">monday, 18:02</text>
+
+          <text x="360" y="40" font-family="'Fraunces', serif" font-style="italic" font-size="14" fill="var(--ink)" text-anchor="middle" opacity="0.8">
+            &mdash; the route from idea to ship &mdash;
+          </text>
+
+          <!-- grain overlay -->
+          <rect x="0" y="0" width="720" height="280" fill="url(#grain)" color="var(--ink)" pointer-events="none"/>
+        </svg>
+        <figcaption class="diagram-caption">
+          fig. a &mdash; six stops, eight skills, one working pomodoro timer.
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ==================== FAILURE MODES ==================== -->
+  <section class="failures" id="failure-modes">
+    <div class="section-head">
+      <p class="section-eyebrow">part one &mdash; the diagnosis</p>
+      <h2 class="section-h2">Why Claude&nbsp;Code <em>alone</em> isn't enough.</h2>
+      <p class="section-lede">
+        Matt's skills exist because a fresh Claude&nbsp;Code agent &mdash; powerful as it is &mdash; fails in four predictable ways. Recognize them, and the journey ahead starts to make sense.
+      </p>
+    </div>
+
+    <ol class="failures__grid">
+      <li class="failure">
+        <span class="failure__num">i.</span>
+        <h3 class="failure__h">Misalignment</h3>
+        <p class="failure__body">The agent confidently builds <em>the wrong thing</em>. You said "pomodoro timer" and it shipped a stopwatch; you said "auto-flip to break" and it added a confirm dialog. The fix isn't a better prompt &mdash; it's a <strong>grilling</strong> ritual that surfaces every assumption before a line of code is written.</p>
+        <p class="failure__cure">cure → <code>/grill-me</code>, <code>/grill-with-docs</code></p>
+      </li>
+      <li class="failure">
+        <span class="failure__num">ii.</span>
+        <h3 class="failure__h">Verbosity</h3>
+        <p class="failure__body">Without shared vocabulary, every conversation re-explains what "completed" means, how "long break" differs from "break." Tokens burn, context fills, drift creeps in. The fix is a living <code>CONTEXT.md</code> &mdash; a project glossary the agent <em>actually</em> reads.</p>
+        <p class="failure__cure">cure → ubiquitous language, <code>CONTEXT.md</code></p>
+      </li>
+      <li class="failure">
+        <span class="failure__num">iii.</span>
+        <h3 class="failure__h">Broken code</h3>
+        <p class="failure__body">An agent without a test loop is an agent flying blind. It will swear the timer works, then carry overrun across phase boundaries and silently shorten every break. The fix is a feedback loop tight enough that lying becomes impossible: tests first, then the code that turns them green.</p>
+        <p class="failure__cure">cure → <code>/tdd</code>, <code>/diagnose</code></p>
+      </li>
+      <li class="failure">
+        <span class="failure__num">iv.</span>
+        <h3 class="failure__h">Architectural decay</h3>
+        <p class="failure__body">Matt&#39;s framing: <em>"AI has simply accelerated software entropy. Codebases are falling apart faster than they ever have before."</em> Every feature lands without the agent considering the whole codebase &mdash; small weirdnesses snowball into a ball of mud. The fix isn&#39;t willpower, it&#39;s ritual: routinely deepen the modules, name the abstractions, record the hard-to-reverse decisions.</p>
+        <p class="failure__cure">cure → <code>/improve-codebase-architecture</code>, ADRs (sparingly)</p>
+      </li>
+    </ol>
+
+    <p class="failures__transition">
+      The eight skills that follow are the cure, sequenced. Read them as a journey, not a menu. &darr;
+    </p>
+  </section>
+
+  <!-- ==================== JOURNEY ==================== -->
+  <main class="journey" id="journey">
+
+    <!-- ============ PHASE 1 — SETUP ============ -->
+    <article class="phase" id="phase-1" data-phase="1">
+      <header class="phase__head">
+        <div class="phase__num-wrap">
+          <span class="phase__numeral">I</span>
+          <span class="phase__num-label">phase one</span>
+        </div>
+        <div class="phase__title-wrap">
+          <p class="phase__kicker">monday · 09:14 · <em>opening the toolbox</em></p>
+          <h2 class="phase__h">Setup.</h2>
+          <p class="phase__lede">
+            Before the first conversation about the pomodoro, install the skills and let one of them set up the others. The repo gains a <code>.claude/</code> directory, a <code>CONTEXT.md</code> stub, and the labels your future issues will need.
+          </p>
+        </div>
+      </header>
+
+      <div class="phase__body">
+        <div class="phase__narrative">
+          <p>You opened a fresh repo this morning &mdash; <code>pomodoro/</code>, empty except for a <code>README.md</code> with one line of vision: <em>"a quiet timer that just works &mdash; 25 on, 5 off, no accounts, no cloud."</em> Nothing else. No tests, no PRD, no issue tracker spun up.</p>
+
+          <p>Resist the urge to start prompting. The first skill you install is the one that installs the others. It scaffolds the conventions every later skill assumes: a place for ADRs, a triage label set on your issue tracker, a <code>CONTEXT.md</code> that begins life empty but will fill itself as you talk.</p>
+
+          <p class="aside">
+            <span class="aside__label">why this matters</span>
+            Skills compose through shared artifacts &mdash; <code>CONTEXT.md</code>, <code>docs/adr/</code>, the label taxonomy. Without setup, every skill works in isolation. With it, they form a system.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/git-guardrails-claude-code</span>
+            Run this <em>once per machine</em> before you commit anything. It installs Claude Code hooks that block <code>git push --force</code>, <code>git reset --hard</code>, branch deletes, and other one-keystroke catastrophes. Not project-specific &mdash; but the moment to install it is right now, while you have zero work to lose.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/setup-pre-commit</span>
+            Would normally fire here too &mdash; Husky + lint-staged for format/typecheck/tests on commit. We're <em>skipping it</em> for this build because the pomodoro app is pure vanilla JS with no <code>npm</code>. Honesty over checklist completeness: a skill that doesn't fit your stack is just noise.
+          </p>
+        </div>
+
+        <aside class="phase__skills" aria-label="Skills used in this phase">
+          <p class="skills-label">skills</p>
+          <ul class="skill-chip-list">
+            <li><button class="skill-chip" data-copy="/setup-matt-pocock-skills"><code>/setup-matt-pocock-skills</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/git-guardrails-claude-code"><code>/git-guardrails-claude-code</code><span class="copy-hint">copy</span></button></li>
+          </ul>
+        </aside>
+
+        <!-- terminal sim -->
+        <div class="terminal" data-terminal="phase-1">
+          <div class="terminal__chrome">
+            <span class="terminal__dots"><i></i><i></i><i></i></span>
+            <span class="terminal__title">claude-code · pomodoro · ~ </span>
+            <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
+          </div>
+          <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
+{"who":"user","t":"npx skills@latest add mattpocock/skills"},
+{"who":"sys","t":"+ 19 skills installed to .claude/skills/"},
+{"who":"user","t":"/setup-matt-pocock-skills"},
+{"who":"claude","t":"I&#39;ll wire this repo up. Confirm:"},
+{"who":"claude","t":"  · issue tracker → GitHub (detected from origin)"},
+{"who":"claude","t":"  · triage labels → triage/needs-grill, triage/sliced, type/bug, type/feat"},
+{"who":"claude","t":"  · ADRs → docs/adr/"},
+{"who":"claude","t":"  · ubiquitous language → CONTEXT.md (will grow as we talk)"},
+{"who":"user","t":"yes, all of it"},
+{"who":"claude","t":"✓ wrote .claude/CLAUDE.md"},
+{"who":"claude","t":"✓ wrote CONTEXT.md (skeleton)"},
+{"who":"claude","t":"✓ created docs/adr/0000-record-architecture-decisions.md"},
+{"who":"claude","t":"✓ added 4 labels to github.com/you/pomodoro"},
+{"who":"user","t":"/git-guardrails-claude-code"},
+{"who":"claude","t":"installing hooks globally — blocks force push, hard reset, branch -D"},
+{"who":"sys","t":"✓ hooks active. one-time setup, applies to every repo on this machine."},
+{"who":"claude","t":"ready. next, try /grill-me to align on what the pomodoro actually is."}
+]'></code></pre>
+        </div>
+
+        <div class="artifact">
+          <p class="artifact__label">artifact &mdash; <code>CONTEXT.md</code> (seeded)</p>
+          <pre class="artifact__body"><code># Pomodoro &mdash; Ubiquitous Language
+
+> This file grows as we talk. Every term Claude needs to reuse lives here.
+
+## Domain
+&mdash; <em>(empty &mdash; the grill will fill this)</em>
+
+## Conventions
+- Vanilla JS, no build step. Tests run in tests.html.
+- ADRs in `docs/adr/`, numbered, immutable once merged.
+</code></pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ PHASE 2 — ALIGN ============ -->
+    <article class="phase phase--flip" id="phase-2" data-phase="2">
+      <header class="phase__head">
+        <div class="phase__num-wrap">
+          <span class="phase__numeral">II</span>
+          <span class="phase__num-label">phase two</span>
+        </div>
+        <div class="phase__title-wrap">
+          <p class="phase__kicker">monday · 09:42 · <em>the grilling</em></p>
+          <h2 class="phase__h">Align.</h2>
+          <p class="phase__lede">
+            One sentence of vision is not a spec. <code>/grill-with-docs</code> turns Claude into the rubber duck that <em>argues back</em>, forcing every assumption to the surface while building a shared glossary as you go. The output isn't code &mdash; it's a shared mental model and a populated <code>CONTEXT.md</code>.
+          </p>
+        </div>
+      </header>
+
+      <div class="phase__body">
+        <div class="phase__narrative">
+          <p>The grilling is uncomfortable on purpose. Every "I think we want…" gets met with "what specifically? what's the failure mode if not?" The skill walks down each branch of what Matt &mdash; following Frederick P. Brooks &mdash; calls the <em>design tree</em>: pick a node, name its trade-offs, resolve them, descend. Don't write code until every branch is named.</p>
+          <p>For the pomodoro, the grill exposes the first hidden decision in under five minutes: when a work session hits zero, does the timer <em>auto-flip</em> to break, or wait for the user to confirm? You hadn't decided. You'd been about to ship the wrong UX.</p>
+          <p>By the time you exit, <code>CONTEXT.md</code> has gained a glossary with <em>session</em>, <em>completed</em>, <em>auto-flip</em>, <em>long break</em>, <em>tick</em> &mdash; each with a one-line definition. Every future skill, every future session, will read this file and stop asking what these words mean.</p>
+
+          <p class="aside">
+            <span class="aside__label">matt's rule</span>
+            <em>"When you have a codebase, use <code>/grill-with-docs</code>. When you don't have a codebase, use <code>/grill-me</code>."</em> Matt has moved <code>/grill-me</code> to his <em>productivity</em> folder &mdash; for non-engineering use cases (he cites a viewer who used it to gather stories for a eulogy). For software work, even on day one of a fresh repo, <code>/grill-with-docs</code> is the engineering version because the act of writing the glossary <em>is</em> the work.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">why the docs matter</span>
+            <em>"You really can nail down and get a magical alignment between you and the AI where you just have to use far fewer words to communicate what you mean."</em> Once <code>CONTEXT.md</code> exists, the agent stops re-asking what "auto-flip" means, file names become consistent with domain terms, and replies tighten because both sides are speaking the same vocabulary.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">how much harder does it actually grill?</span>
+            One reviewer ran the same project description through four planning approaches: <strong>Claude Code default plan mode &mdash; 4 questions</strong>. <strong>Codex plan mode &mdash; 3</strong>. <strong>Superpowers plug-in &mdash; 8</strong>. <strong><code>/grill-me</code> &mdash; 13</strong>. The resulting spec grew from a 55-line prompt to a <strong>146-line document</strong> &mdash; with concrete data models, named technical approaches (e.g. "vector search vs. OpenAI query for AI search"), and per-feature fields the original draft glossed over. The grilling isn't just longer; it's <em>structurally different</em>.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/ubiquitous-language</span>
+            The standalone predecessor that <code>/grill-with-docs</code> absorbed. Reach for it directly if you want to <em>only</em> sharpen the glossary without a full grilling session &mdash; e.g., when refining <code>CONTEXT.md</code> after a feature has shifted the domain language.
+          </p>
+        </div>
+
+        <aside class="phase__skills">
+          <p class="skills-label">skills</p>
+          <ul class="skill-chip-list">
+            <li><button class="skill-chip" data-copy="/grill-with-docs"><code>/grill-with-docs</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/grill-me"><code>/grill-me</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/ubiquitous-language"><code>/ubiquitous-language</code><span class="copy-hint">copy</span></button></li>
+          </ul>
+        </aside>
+
+        <div class="terminal" data-terminal="phase-2">
+          <div class="terminal__chrome">
+            <span class="terminal__dots"><i></i><i></i><i></i></span>
+            <span class="terminal__title">claude-code · pomodoro · the grill</span>
+            <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
+          </div>
+          <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
+{"who":"user","t":"/grill-with-docs about a pomodoro timer: 25 on, 5 off, no accounts"},
+{"who":"claude","t":"No CONTEXT.md yet. I&#39;ll seed it as we go."},
+{"who":"claude","t":"Good. I have questions. One at a time."},
+{"who":"claude","t":"Q1: when a work session hits zero — auto-flip to break, or wait for the user to click?"},
+{"who":"user","t":"auto-flip. the whole point is to not look at it."},
+{"who":"claude","t":"Then break starts running immediately. Recorded in CONTEXT.md."},
+{"who":"claude","t":"Q2: classic pomodoro has a long break every 4th. include it or skip?"},
+{"who":"user","t":"include. 15 minutes."},
+{"who":"claude","t":"Q3: refresh the page mid-session — does it lose state, or restore?"},
+{"who":"user","t":"restore. losing your timer is the worst feature."},
+{"who":"claude","t":"Then we need persistence. localStorage is sufficient — single user, no cloud."},
+{"who":"claude","t":"Q4: when a session ends — sound, browser notification, both, or visual only?"},
+{"who":"user","t":"both. but graceful if denied."},
+{"who":"claude","t":"Then notifier and audio must be feature-detected. ADR-worthy."},
+{"who":"claude","t":"Q5: who owns time — the module (setInterval) or the UI (calls tick)?"},
+{"who":"user","t":"...didn&#39;t think about it. what do you suggest?"},
+{"who":"claude","t":"UI owns it. Module stays a pure state machine, testable without a clock. Defer to the ADR in phase V."},
+{"who":"claude","t":"three more, then I&#39;ll summarize. ..."},
+{"who":"sys","t":"&mdash; 6 minutes later &mdash;"},
+{"who":"claude","t":"✓ CONTEXT.md updated: session, completed, auto-flip, long break, tick (all defined)"},
+{"who":"claude","t":"✓ 2 open questions flagged: custom durations UI? export of completed log?"},
+{"who":"claude","t":"ready to draft a PRD? try /to-prd"}
+]'></code></pre>
+        </div>
+
+        <div class="artifact">
+          <p class="artifact__label">artifact &mdash; <code>CONTEXT.md</code> (after the grill)</p>
+          <pre class="artifact__body"><code>## Domain
+
+- <strong>session</strong> &mdash; a single work or break phase, fixed length.
+- <strong>completed</strong> &mdash; a counter, incremented when a <em>work</em> session ends
+  (not when a break ends).
+- <strong>auto-flip</strong> &mdash; at the boundary, the timer transitions automatically
+  to the next phase with no user input. Overrun is discarded.
+- <strong>long break</strong> &mdash; every 4th completed work session is followed by a
+  15-minute break instead of a 5-minute one.
+- <strong>tick</strong> &mdash; one step of forward time. The UI owns the cadence;
+  the module is pure logic.
+</code></pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ PHASE 3 — SPEC ============ -->
+    <article class="phase" id="phase-3" data-phase="3">
+      <header class="phase__head">
+        <div class="phase__num-wrap">
+          <span class="phase__numeral">III</span>
+          <span class="phase__num-label">phase three</span>
+        </div>
+        <div class="phase__title-wrap">
+          <p class="phase__kicker">monday · 10:30 · <em>from talk to tickets</em></p>
+          <h2 class="phase__h">Spec.</h2>
+          <p class="phase__lede">
+            Two skills, back to back. <code>/to-prd</code> compresses the grill into a single product document and files it as the parent issue. <code>/to-issues</code> slices that PRD into <em>vertical</em> tickets &mdash; each one shippable end to end &mdash; ready for an agent to grab.
+          </p>
+        </div>
+      </header>
+
+      <div class="phase__body">
+        <div class="phase__narrative">
+          <p>This is the joint where most teams &mdash; human or agentic &mdash; lose the thread. A PRD that lives in a Notion doc nobody opens, issues sliced horizontally by layer ("backend ticket / frontend ticket / db ticket") that no single agent can finish alone.</p>
+          <p>Matt's skills go the other way. <code>/to-prd</code> writes the spec <em>into the issue tracker</em> &mdash; the same place the work will happen. <code>/to-issues</code> then breaks it into <em>vertical slices</em>: "timer counts down with pause and resume" is one slice, soup to nuts. The first slice ships in 30 minutes. The fourth ships the product.</p>
+
+          <p class="aside">
+            <span class="aside__label">vertical slices, defined</span>
+            A slice is shippable if a user could (in principle) get value from it alone. "Add a phase enum" is not a slice. "Timer counts down with pause and resume" is. Matt calls these <em>tracer bullets</em> &mdash; each one cuts through every integration layer so the unknowns surface in the first slice, not the last.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">ready for agent</span>
+            Each sliced issue gets a brief and a <code>ready for agent</code> label so an autonomous loop &mdash; Matt's <em>Ralph loops</em> &mdash; can pull it off the queue, implement, commit, close, and grab the next. The skill's purpose is to make tickets <em>agent-ready</em>, not just human-readable.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">what the polished videos don&#39;t show</span>
+            In his unscripted live stream Matt admits two things the curated tutorials elide. First, <em>"I generally don&#39;t read these research documents. The important thing for me is the conclusions we came to."</em> The PRD is for the <em>agent&#39;s</em> context, not your review. He <em>does</em> read <code>CONTEXT.md</code> &mdash; the glossary, not the spec. Second, on viewer questions about reviewing the plan: <em>"people over-review their plans and I think this is a classic mistake&hellip; what they need to be doing is getting to code."</em> The skills exist to <em>finish</em> the planning, not to extend it.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/prototype</span>
+            Optional but useful here. Before TDD-ing the real timer, sketch a 30-line throwaway in a scratch file: just enough markup and JS to see if a single MM:SS countdown <em>feels</em> right. Throw it away. The skill exists specifically to escape the TDD discipline when you're validating a UX hunch, not building production code.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/triage</span>
+            Not just a bug-intake filter &mdash; <code>/triage</code> manages the <em>entire backlog</em>. It runs a label state machine: <code>needs triage</code> &rarr; <code>needs info</code> &rarr; <code>ready for agent</code> &rarr; <code>ready for human</code> &rarr; <code>won't fix</code>. Matt frames it as <em>"Q management... a translation layer between the humans creating these tickets and the AI that's going to implement them."</em> It pairs naturally with <code>/diagnose</code>: if a triaged item is a bug, the same session can drop into a reproduction loop on the spot.
+          </p>
+        </div>
+
+        <aside class="phase__skills">
+          <p class="skills-label">skills</p>
+          <ul class="skill-chip-list">
+            <li><button class="skill-chip" data-copy="/to-prd"><code>/to-prd</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/to-issues"><code>/to-issues</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/prototype"><code>/prototype</code><span class="copy-hint">copy</span></button></li>
+          </ul>
+        </aside>
+
+        <div class="terminal" data-terminal="phase-3">
+          <div class="terminal__chrome">
+            <span class="terminal__dots"><i></i><i></i><i></i></span>
+            <span class="terminal__title">claude-code · pomodoro · spec</span>
+            <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
+          </div>
+          <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
+{"who":"user","t":"/to-prd"},
+{"who":"claude","t":"Compressing this session + CONTEXT.md into a PRD..."},
+{"who":"claude","t":"✓ filed issue #1 &mdash; PRD: Pomodoro v0.1 (label: type/feat)"},
+{"who":"user","t":"/to-issues #1"},
+{"who":"claude","t":"Slicing PRD into vertical tickets. Each should be shippable alone."},
+{"who":"claude","t":"Proposed slices:"},
+{"who":"claude","t":"  #2  timer: count down work, start/pause/reset"},
+{"who":"claude","t":"  #3  auto-flip work→break→work, configurable + long break every 4th"},
+{"who":"claude","t":"  #4  persistence: state survives reload via localStorage"},
+{"who":"claude","t":"  #5  feedback: notification + sound on session end (feature-detected)"},
+{"who":"user","t":"ship it. start with #2."},
+{"who":"claude","t":"✓ #2 opened, labeled triage/sliced, dependencies wired."},
+{"who":"claude","t":"ready for /tdd to take it."}
+]'></code></pre>
+        </div>
+
+        <div class="artifact">
+          <p class="artifact__label">artifact &mdash; issue #2 (sliced)</p>
+          <pre class="artifact__body"><code><strong>#2 &mdash; timer: count down work, start/pause/reset</strong>
+
+<em>parent:</em> #1 (PRD: Pomodoro v0.1)
+<em>slice type:</em> vertical (state + UI control surface)
+
+<strong>acceptance</strong>
+- fresh state shows 25:00, phase=work, completed=0, not running
+- start() begins counting down; tick() advances by elapsed real time
+- pause() freezes the remaining time; idle time during pause is NOT
+  consumed when resumed
+- reset() returns to a fresh work session, but preserves completed counter
+
+<strong>out of scope</strong>
+- auto-flip to break (#3), persistence (#4), notifications (#5)
+- visual polish &mdash; raw numerals are fine for this slice
+</code></pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ PHASE 4 — BUILD ============ -->
+    <article class="phase phase--flip" id="phase-4" data-phase="4">
+      <header class="phase__head">
+        <div class="phase__num-wrap">
+          <span class="phase__numeral">IV</span>
+          <span class="phase__num-label">phase four</span>
+        </div>
+        <div class="phase__title-wrap">
+          <p class="phase__kicker">monday · 11:15 · <em>red, green, refactor</em></p>
+          <h2 class="phase__h">Build.</h2>
+          <p class="phase__lede">
+            <code>/tdd</code> picks up a sliced issue and runs the red-green-refactor loop strictly: write a failing test, make it pass with the smallest possible change, refactor with tests as a net. Claude is bad at flying blind &mdash; the test loop is the cure.
+          </p>
+        </div>
+      </header>
+
+      <div class="phase__body">
+        <div class="phase__narrative">
+          <p>If you've watched Claude implement a feature without tests, you know the failure mode: code that compiles, looks plausible, and silently does the wrong thing. <code>/tdd</code> inverts the order. The test comes first. The implementation exists only to satisfy it.</p>
+          <p>For issue #2, the first test is two lines of intent: a fresh pomodoro reports <code>phase=work, remainingMs=25*60_000, completed=0, isRunning=false</code>. It fails &mdash; <code>createPomodoro</code> doesn't exist yet. Claude writes the smallest factory that returns the right shape. Test passes. Then: start, advance time, expect remaining to decrease. Fail. Implement <code>tick()</code>. Pass. Pause / resume — the trickiest test in slice 1, because the implementation must <em>not</em> consume time spent paused. Claude almost ships it wrong; the test catches it.</p>
+          <p>Four slices, twelve assertions, one running app &mdash; embedded below.</p>
+
+          <p class="aside">
+            <span class="aside__label">discipline check</span>
+            The skill <em>will</em> refuse to write implementation before a test exists. Slice 3 (auto-flip) tries to ship without a test for the "overrun is discarded" rule; the skill pushes back, the test gets written, and we catch a real bug a week before it would have surfaced in production. <strong>Review what the agent wrote, though</strong> &mdash; Owain Lewis (AI TDD video) flags that agents will sometimes generate redundant tests or tests that exercise library code rather than yours. "Worth reviewing the tests as well as reviewing the implementation."
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">when refactor is fine to skip</span>
+            The "refactor" step of red&ndash;green&ndash;refactor isn&#39;t mandatory every iteration. After a 29-line green implementation in the AI TDD demo, Lewis notes: <em>"we don&#39;t really need to do anything here in terms of simplification."</em> If the green code is already shaped right, move to the next test. The discipline isn&#39;t the ritual &mdash; it&#39;s the *option* of refactoring under test cover.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">the rule — one test at a time</span>
+            <em>"LLMs love to create huge horizontal layers. They&#39;ll add 90 different tests in one edit and try to one-shot an implementation that passes all of them. You end up with a lot of crap tests."</em> The non-negotiable rule: one test, watch it fail, minimal implementation, green, next test. Each test guides the implementation; bulk-test-then-bulk-impl produces tests that don&#39;t guide anything.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">why read tests, not implementations</span>
+            <em>"I don't necessarily read all of the implementations. I've seen it go red and then go green, I feel pretty confident."</em> The watchable red&rarr;green transition is the trust signal. Review the test titles to understand what's covered, then QA the running behavior; the implementation between them is structurally pinned.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/caveman &mdash; mind the dumb zone</span>
+            Matt notes that despite advertised 1M-token context windows, <em>"for proper smart tasks you've only got about 120k to work with."</em> Past that, attention diffuses and quality degrades. Switch to <code>/caveman</code> mode mid-build &mdash; ~75% fewer tokens per response &mdash; to extend the session before you hit the dumb zone and need <code>/handoff</code>.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">the QA loop &mdash; not a skill, a pattern</span>
+            Once <code>/tdd</code> finishes the slices, Matt runs an explicit QA pass. Open a fresh Claude session: <em>"Take the last N commits and create a step-by-step QA plan as a GitHub issue."</em> Walk the plan in the running app, file new issues for anything you find, restart the Ralph loop to fix them while you keep QA-ing. Repeat until satisfied. Tests don&#39;t replace the human eye on the UI &mdash; they buy you the right to trust the implementation between QA passes.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/dispatching-parallel-agents</span>
+            Slices #4 (persistence) and #5 (notifications) genuinely share no state &mdash; one writes <code>localStorage</code>, the other calls <code>Notification</code>. Dispatch them to two parallel agents and merge at the end. The skill includes the coordination ritual (separate branches, dependency-free tests) that makes parallelization actually faster than sequential.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">Ralph loops &mdash; the night shift, mechanically</span>
+            Matt&#39;s autonomous runner is a real Docker-based tool he provisionally calls <strong>Sand Castle</strong>: mounts your working dir into a container, lets Claude commit inside, then pulls the commits out as patches and applies them to your local repo. Kicked off via <code>pnpm ralph</code> with a <strong>100-iteration cap</strong>; runs through the GitHub backlog one issue at a time, closing each as it lands. Typical night shift in his videos: <strong>~30 min to ~1.5 hr wall-clock</strong>. The day/night-shift framing comes from his friend Jamon: humans grill &amp; plan during the day, the agent implements at night while you walk to the kitchen.
+          </p>
+        </div>
+
+        <aside class="phase__skills">
+          <p class="skills-label">skills</p>
+          <ul class="skill-chip-list">
+            <li><button class="skill-chip" data-copy="/tdd"><code>/tdd</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/caveman"><code>/caveman</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/dispatching-parallel-agents"><code>/dispatching-parallel-agents</code><span class="copy-hint">copy</span></button></li>
+          </ul>
+        </aside>
+
+        <div class="terminal" data-terminal="phase-4">
+          <div class="terminal__chrome">
+            <span class="terminal__dots"><i></i><i></i><i></i></span>
+            <span class="terminal__title">claude-code · pomodoro · tdd #2</span>
+            <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
+          </div>
+          <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
+{"who":"user","t":"/tdd #2"},
+{"who":"claude","t":"Picking up #2. CONTEXT.md confirms: tick is UI-driven, pure module."},
+{"who":"claude","t":"&mdash; RED &mdash;"},
+{"who":"claude","t":"writing slice 1 / test 1: fresh state shape"},
+{"who":"sys","t":"  it(\"fresh state\") &nbsp;&nbsp;✗ FAIL — createPomodoro is not defined"},
+{"who":"claude","t":"&mdash; GREEN &mdash;"},
+{"who":"claude","t":"smallest impl: a factory returning the right object literal."},
+{"who":"sys","t":"  it(\"fresh state\") &nbsp;&nbsp;✓ PASS"},
+{"who":"claude","t":"&mdash; next test: start + tick advances remaining &mdash;"},
+{"who":"claude","t":"writing slice 1 / test 2"},
+{"who":"sys","t":"  it(\"start + tick advances\") &nbsp;&nbsp;✗ FAIL — tick is not a function"},
+{"who":"claude","t":"implementing tick: elapsed = now() - lastTickAt; remaining -= elapsed."},
+{"who":"sys","t":"  it(\"start + tick advances\") &nbsp;&nbsp;✓ PASS"},
+{"who":"claude","t":"&mdash; pause/resume test next, then auto-flip, persistence, notifications &mdash;"},
+{"who":"claude","t":"loop continues for all 12 assertions. open tests.html to see them green."},
+{"who":"user","t":"all slices, please"},
+{"who":"sys","t":"  tests.html  ✓ 12 / 12 passing"},
+{"who":"claude","t":"slice 4 caught a subtle one: phase transitions used to carry overrun. test forced the fix. ADR drafted for phase V."}
+]'></code></pre>
+        </div>
+
+        <div class="artifact">
+          <p class="artifact__label">artifact &mdash; one of the real tests in <code>tests.html</code></p>
+          <pre class="artifact__body"><code><strong>// slice 1 / test 3 — the test that pinned the pause/resume invariant</strong>
+test(&quot;pause freezes; later resume continues from there&quot;, () =&gt; {
+  const clock = makeClock();
+  const p = createPomodoro({
+    workMs: 60_000, now: clock.now, storage: makeStorage(),
+  });
+  p.start();
+  clock.advance(10_000); p.tick();
+  p.pause();
+  eq(p.getState().isRunning, false);
+  clock.advance(30_000); p.tick();
+  eq(p.getState().remainingMs, 50_000,
+     &quot;30s of pause does not consume time&quot;);
+  p.start();
+  clock.advance(20_000); p.tick();
+  eq(p.getState().remainingMs, 30_000,
+     &quot;after resume + 20s, remaining is 30s&quot;);
+});
+</code></pre>
+        </div>
+
+        <!-- ============ LIVE EMBEDDED POMODORO ============ -->
+        <div class="pomodoro-frame">
+          <p class="pomodoro-frame__intro">
+            The artifact above is a test for the module rendered below &mdash; same code, same instance. Click <em>start</em>; the ring depletes. Edit the duration boxes to remount with new settings; flip to <em>demo</em> to watch a full work&nbsp;&rarr;&nbsp;break&nbsp;&rarr;&nbsp;work&nbsp;&rarr;&nbsp;long-break cycle in under a minute. The same factory under test in <a href="tests.html">tests.html</a> is mounted here against real browser deps (<code>localStorage</code>, <code>Notification</code>, <code>AudioContext</code>).
+          </p>
+          <div id="pomodoro-root" role="application" aria-label="Pomodoro timer"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ PHASE 5 — MAINTAIN ============ -->
+    <article class="phase" id="phase-5" data-phase="5">
+      <header class="phase__head">
+        <div class="phase__num-wrap">
+          <span class="phase__numeral">V</span>
+          <span class="phase__num-label">phase five</span>
+        </div>
+        <div class="phase__title-wrap">
+          <p class="phase__kicker">monday · 15:48 · <em>care, not heroics</em></p>
+          <h2 class="phase__h">Maintain.</h2>
+          <p class="phase__lede">
+            All four slices green. But the build surfaced two issues worth handling before declaring v0.1 done: a subtle bug in phase transitions (overrun carryover), and a quietly-shallow design choice (the module had been about to grow its own <code>setInterval</code>). Two skills, two artifacts.
+          </p>
+        </div>
+      </header>
+
+      <div class="phase__body">
+        <div class="phase__narrative">
+          <p><strong>The bug.</strong> The slice 2 test &mdash; "work→0 auto-flips to break with full breakMs" &mdash; failed on the first implementation: a 1500ms tick into a 1000ms work session left the break at 1500ms remaining, not 2000ms. The agent had carried the 500ms overrun forward. <code>/diagnose</code> doesn't guess; it runs the loop &mdash; <em>reproduce</em>, <em>minimize</em>, <em>hypothesize</em>, <em>fix</em>. The fix lands with a regression test and an ADR that names the choice: overrun is discarded; each new phase starts fresh.</p>
+          <p><strong>The shallow module.</strong> Mid-build, the implementation was about to grow an internal <code>setInterval</code> &mdash; cleaner-looking but harder to test (every test would need a fake timer). <code>/improve-codebase-architecture</code> read the module with one question: <em>what does this own, and what should it own?</em> Answer: it owns state transitions. It does not own time. The UI does. The skill writes the ADR; the module gets a <code>tick()</code> method instead; tests use a manual fake clock; everyone wins.</p>
+
+          <p class="aside">
+            <span class="aside__label">the rhythm of maintenance</span>
+            Bug → <code>/diagnose</code> → fix + regression test. Drift → <code>/improve-codebase-architecture</code> → refactor + ADR. Same loop, different trigger. Neither skill is heroic; both make care routine.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">tactical vs strategic</span>
+            <em>"Agents are really really good tactical programmers. They&#39;re able to get on the ground and make changes quickly, but they need someone on the level above them who is the strategic programmer."</em> <code>/improve-codebase-architecture</code> only works with auto-mode off &mdash; the AI is the sergeant scouting the codebase for "deepening opportunities" (shallow modules with wide interfaces), but you, the general, make the calls. The skill then ships a refactor RFC to <code>/to-issues</code> for an AFK agent to execute. Run it every few days.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">accelerated software entropy</span>
+            <em>"AI has simply accelerated software entropy. Codebases are falling apart faster than they ever have before, because every time you make a change that doesn't take into account the entire codebase you introduce little weird things... until you end up with a huge ball of mud."</em> Maintenance isn't a side quest; with AI on the keyboard it's the only thing keeping the codebase navigable.
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/zoom-out</span>
+            Run this <em>before</em> <code>/improve-codebase-architecture</code>, not in place of it. <code>/zoom-out</code> answers "what does this codebase actually look like from above?" — and that altitude is the precondition for spotting which modules are shallow. We used it to notice that <code>app.js</code> was about to grow a timer responsibility that didn't belong there.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">ADRs &mdash; only for the hard-to-reverse</span>
+            An ADR isn&#39;t for "we picked Vitest over Jest" &mdash; that&#39;s swappable. ADRs are for decisions that calcify the codebase: ours (0001 overrun discarded, 0002 module owns no clock) both shape every future feature touching the timer. If undoing the choice in six months would be cheap, skip the ADR.
+          </p>
+        </div>
+
+        <aside class="phase__skills">
+          <p class="skills-label">skills</p>
+          <ul class="skill-chip-list">
+            <li><button class="skill-chip" data-copy="/diagnose"><code>/diagnose</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/improve-codebase-architecture"><code>/improve-codebase-architecture</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/zoom-out"><code>/zoom-out</code><span class="copy-hint">copy</span></button></li>
+          </ul>
+        </aside>
+
+        <div class="terminal" data-terminal="phase-5">
+          <div class="terminal__chrome">
+            <span class="terminal__dots"><i></i><i></i><i></i></span>
+            <span class="terminal__title">claude-code · pomodoro · maintain</span>
+            <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
+          </div>
+          <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
+{"who":"user","t":"/diagnose &mdash; slice 2 test 1 fails: expected remaining=2000, got 1500"},
+{"who":"claude","t":"&mdash; REPRODUCE &mdash;"},
+{"who":"claude","t":"workMs=1000, breakMs=2000, advance 1500ms. confirmed: remaining=1500."},
+{"who":"claude","t":"&mdash; MINIMIZE &mdash;"},
+{"who":"claude","t":"isolated to tick(). After remaining drops below 0, transitionOnZero runs but overrun (-500) is carried into the new phase."},
+{"who":"claude","t":"&mdash; HYPOTHESIS &mdash;"},
+{"who":"claude","t":"a `while (remaining <= 0)` loop subtracts overrun after each transition."},
+{"who":"claude","t":"&mdash; FIX &mdash;"},
+{"who":"claude","t":"replace while with if. overrun is discarded by design — recorded in ADR 0001."},
+{"who":"sys","t":"  tests.html  ✓ 12 / 12 passing (was 11)"},
+{"who":"user","t":"/zoom-out"},
+{"who":"claude","t":"app.js currently owns: tutorial DOM, copy/scroll-spy/terminal, pomodoro module, pomodoro UI."},
+{"who":"claude","t":"observation: the pomodoro module was about to grow its own setInterval. UI doesn&#39;t need it; tests definitely don&#39;t want it."},
+{"who":"user","t":"/improve-codebase-architecture"},
+{"who":"claude","t":"finding: module would become shallow if it owned a clock — interface 90% test-stub mechanics."},
+{"who":"claude","t":"proposal: keep module as pure logic; expose tick(); UI calls setInterval(tick, 250)."},
+{"who":"claude","t":"writing docs/adr/0002-module-owns-no-clock.md."},
+{"who":"user","t":"accept."},
+{"who":"claude","t":"✓ refactor complete. module: 0 timers. tests: 0 fake timers. ADR merged."}
+]'></code></pre>
+        </div>
+
+        <div class="artifact">
+          <p class="artifact__label">artifact &mdash; <code>docs/adr/0002-module-owns-no-clock.md</code></p>
+          <pre class="artifact__body"><code># 0002 &mdash; createPomodoro owns no clock
+
+<strong>status:</strong> accepted &nbsp; <strong>date:</strong> 2026-05-28
+
+<strong>context.</strong> The pomodoro module was about to grow an internal
+setInterval to drive its own ticking. This is the obvious shape —
+&quot;the timer ticks itself&quot; — but it makes the module shallow:
+its interface would balloon with start/pause/reset and also
+implicit clock-coupling that every test would need to stub.
+
+<strong>decision.</strong> The module owns state transitions only.
+Time is advanced by an external caller via tick(). In production
+the UI calls setInterval(() =&gt; pomodoro.tick(), 250). In tests,
+the harness calls tick() directly after advancing a fake clock.
+
+<strong>consequences.</strong> + Module is trivially testable with no
+fake-timer scaffolding. + The boundary between &quot;pure logic&quot;
+and &quot;real I/O&quot; is explicit and narrow. &minus; Callers must
+remember to wire a tick driver — but the failure mode is loud
+(the timer doesn&#39;t move) and immediate.
+</code></pre>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ PHASE 6 — HANDOFF ============ -->
+    <article class="phase phase--flip phase--final" id="phase-6" data-phase="6">
+      <header class="phase__head">
+        <div class="phase__num-wrap">
+          <span class="phase__numeral">VI</span>
+          <span class="phase__num-label">phase six</span>
+        </div>
+        <div class="phase__title-wrap">
+          <p class="phase__kicker">monday · 18:02 · <em>passing the baton</em></p>
+          <h2 class="phase__h">Handoff.</h2>
+          <p class="phase__lede">
+            Context windows fill. Sessions diverge. A side-quest opens mid-grill. <code>/handoff</code> compresses just the relevant slice of the current session into a markdown file the next reader &mdash; human or agent &mdash; can resume from cleanly. Not a summary. A continuation. Most often fired <em>mid-session</em>, not at end of day.
+          </p>
+        </div>
+      </header>
+
+      <div class="phase__body">
+        <div class="phase__narrative">
+          <p>Pomodoro v0.1 is shipped &mdash; four slices green, two ADRs filed, twelve tests passing in <code>tests.html</code>. The session that built it is 16k tokens deep, well inside the smart zone. But you noticed a refactor opportunity in <code>app.js</code> halfway through Phase V that&#39;s "totally out of bounds out of scope from my current session." Extending the chat would dilute it; <code>/compact</code> would clobber the current progress. <code>/handoff</code> is the third option: peel off just that slice, ship it to a fresh agent, keep this session pure.</p>
+          <p>The file goes to the OS <em>temp directory</em>, not your repo. Matt is explicit: <em>"these handoff files are disposable&hellip; not something to be kept around for a long time to rot in your codebase as documentation."</em> It contains <em>only</em> what the next session can&#39;t reconstruct from the code itself &mdash; open questions, deferred decisions, the "why" behind anything non-obvious &mdash; and uses <strong>pointers</strong> to GitHub issues, ADRs, and <code>CONTEXT.md</code> rather than duplicating their content.</p>
+
+          <p class="aside">
+            <span class="aside__label">matt&#39;s rules for a good HANDOFF.md</span>
+            (1) Save to <code>$TMPDIR</code>, never the repo. (2) Use pointers, never duplicate. (3) Redact API keys, passwords, PII &mdash; markdown ends up in places you don&#39;t expect. (4) Always describe <em>why</em> you&#39;re handing off &mdash; without a stated purpose, the agent can&#39;t write a useful document. (5) Include a <em>Suggested Skills</em> section so the receiving agent knows whether to invoke <code>/grill-with-docs</code>, <code>/diagnose</code>, <code>/prototype</code>, etc.
+          </p>
+
+          <p class="aside">
+            <span class="aside__label">handoff &harr; prototype: the DIY sub-agent loop</span>
+            The richest pattern Matt describes: in the middle of a grilling session you hit a question the agent can&#39;t answer without seeing code. <code>/handoff</code> to a fresh agent that runs <code>/prototype</code>. That agent learns. <code>/handoff</code> the learnings <em>back</em> to the original grilling session. The original session resumes with the new knowledge in 200 tokens instead of 16k. <em>"It&#39;s almost like you&#39;ve done a kind of DIY sub-agent."</em>
+          </p>
+
+          <p class="aside aside--side-skill">
+            <span class="aside__label">/write-a-skill</span>
+            One more thing before we close: during the build we ran the same micro-routine twice &mdash; <em>save state to localStorage, then notify subscribers</em>. That's a pattern worth codifying. <code>/write-a-skill</code> scaffolds a new skill (frontmatter, progressive disclosure, examples) so your <em>own</em> recurring rituals become reusable. The meta-skill: building your toolbox as you build the thing.
+          </p>
+        </div>
+
+        <aside class="phase__skills">
+          <p class="skills-label">skills</p>
+          <ul class="skill-chip-list">
+            <li><button class="skill-chip" data-copy="/handoff"><code>/handoff</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/write-a-skill"><code>/write-a-skill</code><span class="copy-hint">copy</span></button></li>
+          </ul>
+        </aside>
+
+        <div class="terminal" data-terminal="phase-6">
+          <div class="terminal__chrome">
+            <span class="terminal__dots"><i></i><i></i><i></i></span>
+            <span class="terminal__title">claude-code · pomodoro · handoff</span>
+            <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
+          </div>
+          <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
+{"who":"user","t":"/handoff to a fresh agent to refactor the items module — found a deeper-module opportunity in app.js mid-build"},
+{"who":"claude","t":"Got it. Purpose stated. Compressing just the relevant slice."},
+{"who":"claude","t":"Rule: keep only what is NOT recoverable from the code."},
+{"who":"claude","t":"  · why we&#39;re handing off → yes"},
+{"who":"claude","t":"  · open questions on the refactor → yes (1)"},
+{"who":"claude","t":"  · ADR pointers → yes (0002 clock ownership)"},
+{"who":"claude","t":"  · suggested skills → /zoom-out, /improve-codebase-architecture"},
+{"who":"claude","t":"  · what we built → NO (pointer to tests.html)"},
+{"who":"claude","t":"  · file structure → NO (pointer to CONTEXT.md)"},
+{"who":"claude","t":"  · API keys / PII → redacted"},
+{"who":"claude","t":"✓ wrote $TMPDIR/handoff-pomodoro-items-refactor.md (54 lines)"},
+{"who":"claude","t":"next agent: paste the file path, it will load the suggested skills automatically."},
+{"who":"user","t":"/write-a-skill: codify the persist-then-notify pattern"},
+{"who":"claude","t":"scaffolding .claude/skills/persist-and-notify/"},
+{"who":"claude","t":"✓ frontmatter, examples, references created. usable next session."},
+{"who":"user","t":"clear, ship it"}
+]'></code></pre>
+        </div>
+
+        <div class="artifact">
+          <p class="artifact__label">artifact &mdash; <code>$TMPDIR/handoff-pomodoro-items-refactor.md</code></p>
+          <pre class="artifact__body"><code># Handoff &mdash; items module refactor &nbsp; <em>(2026-05-28 18:02)</em>
+
+## Why we&#39;re handing off
+Mid-build noticed app.js was growing a shallow items wrapper around
+repo.ts. Out of scope for the current pomodoro session; worth a
+focused agent. <em>Keep this session pure to ship v0.1.</em>
+
+## Suggested skills
+/zoom-out, then /improve-codebase-architecture (auto-mode OFF)
+
+## Pointers (do NOT duplicate these)
+- Current shape: see <code>repo.ts</code> + <code>items.ts</code>
+- Domain terms: <code>CONTEXT.md</code> &mdash; <em>session, tick, auto-flip</em>
+- Constraint on time: ADR 0002 (module owns no clock)
+- Constraint on transitions: ADR 0001 (overrun discarded)
+- Live behavior: <code>tests.html</code> slice 4 test 3 (null-safety regression)
+
+## Open question for the new agent
+items.ts exposes 9 methods; 6 are 1-line passthroughs to repo.ts.
+Collapse into repo.ts, or split into a use-case layer? Make the call,
+draft a refactor RFC via /to-issues, then hand back.
+
+## Redacted
+None this session (no keys, no PII).
+</code></pre>
+        </div>
+
+        <p class="phase__closing">
+          <span class="phase__stamp">&mdash; the route is complete &mdash;</span>
+        </p>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ==================== SKILLS NOT USED (honest appendix) ==================== -->
+  <section class="further">
+    <div class="section-head">
+      <p class="section-eyebrow">appendix &mdash; skills we did <em>not</em> use</p>
+      <h2 class="section-h2">And why.</h2>
+      <p class="section-lede">
+        The journey covered every skill that genuinely fit this build &mdash; 17 of the 19 in the repo, each at the moment it would actually fire. Two skills didn't apply, and pretending they did would have been performative. Here's the honest accounting.
+      </p>
+    </div>
+
+    <ul class="further__grid">
+      <li class="further__card">
+        <code class="further__name">/migrate-to-shoehorn</code>
+        <p>Replaces <code>as</code> assertions in tests with <code>@total-typescript/shoehorn</code>. We're vanilla JS &mdash; no TypeScript, no <code>as</code> casts &mdash; so the skill has nothing to migrate. Save it for the next TS project.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">/scaffold-exercises</code>
+        <p>Builds problem/solution/explainer directories for teaching material. This is a single-app build, not a course module. The skill is genuinely useful, just not <em>here</em>.</p>
+      </li>
+    </ul>
+
+    <p class="failures__transition" style="margin-top: 36px;">
+      Every other skill from <em>mattpocock/skills</em> appeared above &mdash; in a terminal, in a callout, or in an artifact. Scroll back if you missed one.
+    </p>
+  </section>
+
+  <!-- ==================== PROVENANCE — videos this version was hardened against ==================== -->
+  <section class="further" id="provenance">
+    <div class="section-head">
+      <p class="section-eyebrow">appendix &mdash; provenance</p>
+      <h2 class="section-h2">The corpus this version was <em>hardened against</em>.</h2>
+      <p class="section-lede">
+        Earlier drafts of this field manual leaned on the <em>mattpocock/skills</em> README and inferred the rest. This version was checked against Matt&#39;s own video explanations &mdash; <strong>ten</strong> videos fed into a NotebookLM notebook, then <strong>eighteen</strong> questions asked of that notebook (eight cross-cutting, six per-video deep-dives, three drilling into the user-added videos, plus one drilling into the only live stream in the corpus) to verify the framing, surface direct quotes, and catch claims the README leaves out. Every &ldquo;Matt says&rdquo; aside on this page traces to a citation in <code>notebook_output.json</code> in the project folder.
+      </p>
+    </div>
+
+    <ul class="further__grid">
+      <li class="further__card">
+        <code class="further__name">5 skills I use every single day</code>
+        <p><a href="https://www.youtube.com/watch?v=EJyuu6zlQCg" target="_blank" rel="noopener">youtube · EJyuu6zlQCg</a><br>Source for: the daily-five list, the "design tree" attribution, why the skill text doesn&#39;t use Claude&#39;s ask-question tool, and the clarification that <code>/improve-codebase-architecture</code> is a <em>weekly</em> cadence outside the per-feature chain.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">/grill-me for plan mode</code>
+        <p><a href="https://www.youtube.com/watch?v=rLNLa2dcjG8" target="_blank" rel="noopener">youtube · rLNLa2dcjG8</a><br>Source for: <em>"Claude code creates a plan far too eagerly and early"</em>, and the concrete <strong>4 / 3 / 8 / 13 question count comparison</strong> across Claude Code default, Codex, Superpowers, and <code>/grill-me</code> on the same prompt &mdash; 55 lines in, 146 lines out.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">I stopped using /grill-me &mdash; what I use instead</code>
+        <p><a href="https://www.youtube.com/watch?v=6BB6exR8Zd8" target="_blank" rel="noopener">youtube · 6BB6exR8Zd8</a><br>Source for: the Phase II flip &mdash; <em>"when you have a codebase use Grill with Docs, when you don&#39;t have a codebase use Grill Me."</em></p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">Building a REAL feature with Claude Code</code>
+        <p><a href="https://www.youtube.com/watch?v=hX7yG1KVYhI" target="_blank" rel="noopener">youtube · hX7yG1KVYhI</a><br>Source for: Ralph loops, the AFK day-shift/night-shift framing (coined by Jamon), the QA loop pattern after build, and the <strong>Sand Castle Docker setup</strong> &mdash; 100-iteration cap, ~30 min&ndash;1.5 hr night shifts, container-mounts-working-dir-extracts-commits-as-patches.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">Red Green Refactor is OP With Claude Code</code>
+        <p><a href="https://www.youtube.com/watch?v=hYZdIwFIy-c" target="_blank" rel="noopener">youtube · hYZdIwFIy-c</a><br>Source for: the "one test at a time" rule and <em>"I don&#39;t necessarily read all of the implementations &mdash; I&#39;ve seen it go red and then go green."</em></p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">How I Test With Claude Code (AI TDD)</code>
+        <p><a href="https://www.youtube.com/watch?v=Kx7bAwVH_1c" target="_blank" rel="noopener">youtube · Kx7bAwVH_1c</a><br>Source for: concrete bugs caught by the test-first loop (library compatibility, SQLite vs. Postgres mismatch), and Owain Lewis&#39;s caveats &mdash; agents write redundant/library-testing tests, human review needed, refactor step sometimes skippable.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">/handoff is my new favourite skill</code>
+        <p><a href="https://www.youtube.com/watch?v=dtAJ2dOd3ko" target="_blank" rel="noopener">youtube · dtAJ2dOd3ko</a><br>Source for: HANDOFF.md in <code>$TMPDIR</code> not the repo, the "dumb zone" at ~120k tokens, the DIY sub-agent pattern, the <em>Suggested Skills</em> section.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">Burn through the backlog with /triage</code>
+        <p><a href="https://www.youtube.com/watch?v=MzWIIlx0Gpc" target="_blank" rel="noopener">youtube · MzWIIlx0Gpc</a><br>Source for: <code>/triage</code> as full-backlog state-machine, not just bug intake; the label workflow; pairing with <code>/diagnose</code>.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">How To De-Slop A Codebase Ruined By AI</code>
+        <p><a href="https://www.youtube.com/watch?v=3MP8D-mdheA" target="_blank" rel="noopener">youtube · 3MP8D-mdheA</a><br>Source for: <em>"AI has accelerated software entropy"</em>, the tactical-vs-strategic-programmer framing, auto-mode OFF for human-in-the-loop refactor.</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">LIVE: Watch me build a brand-new project from scratch</code>
+        <p><a href="https://www.youtube.com/watch?v=K-mA3MZ_EzU" target="_blank" rel="noopener">youtube · K-mA3MZ_EzU</a><br>The only unscripted source. Source for: the Phase III &ldquo;what the polished videos don&#39;t show&rdquo; aside &mdash; he doesn&#39;t read his own PRDs, he warns against over-planning, he uses a skill called <code>/domain&nbsp;model</code> not visible elsewhere. Also: cross-session Claude-talks-to-Claude as ad-hoc handoff, name-burning friction (Slopwatch came from the live audience), and "frontend vs backend is an artificial decision."</p>
+      </li>
+    </ul>
+
+    <p class="failures__transition" style="margin-top: 36px;">
+      Workflow lives in <code>build_notebook.py</code> in this project folder; you can re-run it after editing <code>VIDEOS</code> or <code>QUESTIONS</code> to harden a different version against a different corpus.
+    </p>
+  </section>
+
+  <!-- ==================== CTA / FOOTER ==================== -->
+  <section class="cta" id="install">
+    <div class="cta__inner">
+      <p class="cta__eyebrow">&mdash; your turn &mdash;</p>
+      <h2 class="cta__h">Install. Then grill yourself.</h2>
+      <p class="cta__lede">
+        Two commands and a habit. Install the skills. Then, the next time an idea lands on your desk, open a fresh Claude&nbsp;Code in a real codebase and type the one word that does more than any other on the list: <code>/grill-with-docs</code>.
+      </p>
+
+      <div class="cta__commands">
+        <button class="cta__cmd" data-copy="npx skills@latest add mattpocock/skills">
+          <span class="cta__cmd-step">step 1 &mdash; install</span>
+          <code>npx skills@latest add mattpocock/skills</code>
+          <span class="cta__cmd-hint">click to copy</span>
+        </button>
+        <button class="cta__cmd cta__cmd--accent" data-copy="/grill-with-docs about [your next feature]">
+          <span class="cta__cmd-step">step 2 &mdash; the habit (for code)</span>
+          <code>/grill-with-docs about [your next feature]</code>
+          <span class="cta__cmd-hint">click to copy</span>
+        </button>
+      </div>
+
+      <ul class="cta__links">
+        <li><a href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">github.com/mattpocock/skills →</a></li>
+        <li><a href="https://www.youtube.com/@mattpocockuk" target="_blank" rel="noopener">youtube.com/@mattpocockuk →</a></li>
+        <li><a href="tests.html">tests.html →</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div class="colophon__inner">
+      <p>
+        <span class="colophon__rule"></span>
+        Field Manual vol.01 &mdash; an unofficial reader&#39;s companion to <em>mattpocock/skills</em>, with a working pomodoro built end to end.
+      </p>
+      <p class="colophon__meta">
+        set in <em>Fraunces</em>, <em>Newsreader</em>, and <em>JetBrains Mono</em> &middot; quote-hardened via <em>NotebookLM</em> (<a href="https://github.com/teng-lin/notebooklm-py" target="_blank" rel="noopener">teng-lin/notebooklm-py</a>) against <a href="#provenance">9 of Matt&#39;s videos</a> &middot; not affiliated with Matt Pocock &middot; <a href="#hero">↑ back to top</a>
+      </p>
+      <p class="colophon__meta colophon__verified" data-verified-line>verified against <em>mattpocock/skills</em> @ <a href="https://github.com/mattpocock/skills/tree/0288510dd61ff6ef7c2003834082ab8f2387e80e" target="_blank" rel="noopener"><code>0288510</code></a> &middot; 10 videos &middot; last checked 2026-05-28</p>
+    </div>
+  </footer>
+
+  <!-- floating copy toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">copied</div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
