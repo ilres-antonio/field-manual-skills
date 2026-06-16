@@ -320,6 +320,11 @@
             One reviewer ran the same project description through four planning approaches: <strong>Claude Code default plan mode &mdash; 4 questions</strong>. <strong>Codex plan mode &mdash; 3</strong>. <strong>Superpowers plug-in &mdash; 8</strong>. <strong><code>/grill-me</code> &mdash; 13</strong>. The resulting spec grew from a 55-line prompt to a <strong>146-line document</strong> &mdash; with concrete data models, named technical approaches (e.g. "vector search vs. OpenAI query for AI search"), and per-feature fields the original draft glossed over. The grilling isn't just longer; it's <em>structurally different</em>.
           </p>
 
+          <p class="aside">
+            <span class="aside__label">stateful vs stateless skills</span>
+            Matt&#39;s sharpest framing for <em>why</em> <code>/grill-with-docs</code> earns the default slot in a real codebase. A <strong>stateless</strong> skill <em>&ldquo;doesn&#39;t retain any state from previous runs&rdquo;</em> &mdash; <code>/grill-me</code> grills you, then forgets. A <strong>stateful</strong> skill saves to the filesystem &mdash; ADRs, glossaries &mdash; and so it <em>&ldquo;gets better over time.&rdquo;</em> That&#39;s <code>/grill-with-docs</code>. Matt drew this exact contrast while explaining why his <code>/teach</code> skill had to be stateful: a teacher who forgets what you learned last session can&#39;t teach. Same logic &mdash; and the same reason the codebase variant wins.
+          </p>
+
           <p class="aside aside--side-skill">
             <span class="aside__label">/ubiquitous-language</span>
             The standalone predecessor that <code>/grill-with-docs</code> absorbed. Reach for it directly if you want to <em>only</em> sharpen the glossary without a full grilling session &mdash; e.g., when refining <code>CONTEXT.md</code> after a feature has shifted the domain language.
@@ -871,7 +876,7 @@ None this session (no keys, no PII).
       <p class="section-eyebrow">appendix &mdash; provenance</p>
       <h2 class="section-h2">The corpus this version was <em>hardened against</em>.</h2>
       <p class="section-lede">
-        Earlier drafts of this field manual leaned on the <em>mattpocock/skills</em> README and inferred the rest. This version was checked against Matt&#39;s own video explanations &mdash; <strong>ten</strong> videos fed into a NotebookLM notebook, then <strong>eighteen</strong> questions asked of that notebook (eight cross-cutting, six per-video deep-dives, three drilling into the user-added videos, plus one drilling into the only live stream in the corpus) to verify the framing, surface direct quotes, and catch claims the README leaves out. Every &ldquo;Matt says&rdquo; aside on this page traces to a citation in <code>notebook_output.json</code> in the project folder.
+        Earlier drafts of this field manual leaned on the <em>mattpocock/skills</em> README and inferred the rest. This version was checked against Matt&#39;s own video explanations &mdash; <strong>eleven</strong> videos fed into a NotebookLM notebook, then <strong>nineteen</strong> questions asked of that notebook (eight cross-cutting, seven per-video deep-dives, three drilling into the user-added videos, plus one drilling into the only live stream in the corpus) to verify the framing, surface direct quotes, and catch claims the README leaves out. Every &ldquo;Matt says&rdquo; aside on this page traces to a citation in <code>notebook_output.json</code> in the project folder.
       </p>
     </div>
 
@@ -915,6 +920,10 @@ None this session (no keys, no PII).
       <li class="further__card">
         <code class="further__name">LIVE: Watch me build a brand-new project from scratch</code>
         <p><a href="https://www.youtube.com/watch?v=K-mA3MZ_EzU" target="_blank" rel="noopener">youtube · K-mA3MZ_EzU</a><br>The only unscripted source. Source for: the Phase III &ldquo;what the polished videos don&#39;t show&rdquo; aside &mdash; he doesn&#39;t read his own PRDs, he warns against over-planning, he uses a skill called <code>/domain&nbsp;model</code> not visible elsewhere. Also: cross-session Claude-talks-to-Claude as ad-hoc handoff, name-burning friction (Slopwatch came from the live audience), and "frontend vs backend is an artificial decision."</p>
+      </li>
+      <li class="further__card">
+        <code class="further__name">Learn anything with the /teach skill</code>
+        <p><a href="https://www.youtube.com/watch?v=s5T5oQJcJ6U" target="_blank" rel="noopener">youtube · s5T5oQJcJ6U</a><br>Source for: the Phase II <strong>stateful-vs-stateless</strong> skill distinction &mdash; <code>/grill-me</code> is stateless (no memory), <code>/grill-with-docs</code> saves ADRs + glossaries and <em>&ldquo;gets better over time.&rdquo;</em> Matt&#39;s own worked example for the concept, given while explaining why <code>/teach</code> itself had to be stateful.</p>
       </li>
     </ul>
 

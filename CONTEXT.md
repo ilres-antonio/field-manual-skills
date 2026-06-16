@@ -46,7 +46,7 @@ introduced — don't add unannounced jargon.
   channel as captured in `skills_snapshot.json`. Used by
   `check_skills.py` to detect new uploads; *not* the same set as the
   corpus.
-- **provenance card** — one of the 10 cards in the `#provenance` section
+- **provenance card** — one of the 11 cards in the `#provenance` section
   of `index.html`. Each card maps a video to the specific claims it
   sourced.
 - **freshness signal** — the `<p data-verified-line>` paragraph in the
