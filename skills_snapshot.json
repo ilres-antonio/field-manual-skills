@@ -1,6 +1,6 @@
 {
-  "verified_at": "2026-05-28T14:47:35+00:00",
-  "repo_commit": "0288510dd61ff6ef7c2003834082ab8f2387e80e",
+  "verified_at": "2026-06-16T09:09:09+00:00",
+  "repo_commit": "694fa30311e02c2639942308513555e61ee84a6f",
   "skills": {
     "skills/deprecated/README.md": "5f53b3ceab018b35f34811bb12424aa8fa526245",
     "skills/deprecated/design-an-interface/SKILL.md": "d056bd183229ca93bd41cf1b8c10c6fd1f30e75f",
@@ -10,7 +10,7 @@
     "skills/engineering/README.md": "065c2bf26e121df2c9fb3d936ae953cfa027fa2d",
     "skills/engineering/diagnose/SKILL.md": "ed55bda2fdb0d690ea3b80a1cf28bf848c5ad2b5",
     "skills/engineering/grill-with-docs/ADR-FORMAT.md": "da7e78ec1c220cd0aedf7ad36424c9398034f375",
-    "skills/engineering/grill-with-docs/CONTEXT-FORMAT.md": "08302557cc2ca8de32c02de708a7c8c84ed66f3f",
+    "skills/engineering/grill-with-docs/CONTEXT-FORMAT.md": "eaf2a18573f0a2d8c69ed53e29e4d9e21baf81d8",
     "skills/engineering/grill-with-docs/SKILL.md": "5ea0aa913629bec683690f371839bd10e588413d",
     "skills/engineering/improve-codebase-architecture/DEEPENING.md": "ecaf5d7dcf7aae2aff6dbc63742dd069351b4f5c",
     "skills/engineering/improve-codebase-architecture/HTML-REPORT.md": "8adc368ffb30f9e8a6f01ac95621555f4afc2b76",
@@ -33,18 +33,13 @@
     "skills/engineering/tdd/refactoring.md": "8a4443924fbe40c2f865c56a9477d5ec01cc9962",
     "skills/engineering/tdd/tests.md": "ff22f809ccbcac26ecd7a3c4bc48ef701a8ac82e",
     "skills/engineering/to-issues/SKILL.md": "9f6efbfe5fb5fcb9a751482e333d2f54da173102",
-    "skills/engineering/to-prd/SKILL.md": "47a01d4e63cb4ba5b1ab020fd7efe6ab2a2c1d69",
+    "skills/engineering/to-prd/SKILL.md": "ee758fdc34a9102caac95623b2dc07aea86e297e",
     "skills/engineering/triage/AGENT-BRIEF.md": "2efecdfeb392246430a957de21d5062c2e5c98ba",
     "skills/engineering/triage/OUT-OF-SCOPE.md": "cc8ea2575981f464bcc7429faf401ffd4fe64ede",
     "skills/engineering/triage/SKILL.md": "3dee68f977ebab5d25a421f9d1f9ac1b56e0b7d7",
     "skills/engineering/zoom-out/SKILL.md": "1e7a5dc728fed0a85a28c9dfb6e78ce5a81da7db",
     "skills/in-progress/README.md": "eda3fe30b5a13583e512bf4422ac2dc6893f7c37",
     "skills/in-progress/review/SKILL.md": "7507a362147167c277b17ec5abf8bedb99fc42d5",
-    "skills/in-progress/teach/GLOSSARY-FORMAT.md": "9cae84c44c8eb5d27b8695d4ef29a2893dc4900c",
-    "skills/in-progress/teach/LEARNING-RECORD-FORMAT.md": "2faa7c98fabcdff48eb6bd07e4847d48a6b8d4e1",
-    "skills/in-progress/teach/MISSION-FORMAT.md": "5dac184a319308e2ec0c18c16d6b8d52b9be2748",
-    "skills/in-progress/teach/RESOURCES-FORMAT.md": "c94aac6a2634cc229fe0b777fc5cc7da3a28c3d2",
-    "skills/in-progress/teach/SKILL.md": "0bd3633fe8663e5c45a8529db7dae9e169a92763",
     "skills/in-progress/writing-beats/SKILL.md": "419d11fe13cf72bd1b5ef2dc6356ebdd3c9803c4",
     "skills/in-progress/writing-fragments/SKILL.md": "5514eaae3d941246561e43fa05e5cd52160b676b",
     "skills/in-progress/writing-shape/SKILL.md": "7dea05702bfe6d9a26164cfecbf18b4c3c58442b",
@@ -56,13 +51,23 @@
     "skills/personal/README.md": "788439151d9157c4991723b98729069d43a6a612",
     "skills/personal/edit-article/SKILL.md": "b319b7c6fb034ed3d085519dce70702601f174e9",
     "skills/personal/obsidian-vault/SKILL.md": "b9393654a90811d6e1ce25163b3bd77f803c1026",
-    "skills/productivity/README.md": "3a5b951d5968f5c5d9ada8d61cced65642099852",
+    "skills/productivity/README.md": "23a506e6bb9660bbf0e36ce72909489e5c067db7",
     "skills/productivity/caveman/SKILL.md": "85770a38992a7c74d2b3467b03fe5bd4b1287fe6",
     "skills/productivity/grill-me/SKILL.md": "bd04394c675ee54173a093c50eb74da01a2940fa",
     "skills/productivity/handoff/SKILL.md": "0aa5b99300da27b50e80db53f880e422204faedd",
+    "skills/productivity/teach/GLOSSARY-FORMAT.md": "9cae84c44c8eb5d27b8695d4ef29a2893dc4900c",
+    "skills/productivity/teach/LEARNING-RECORD-FORMAT.md": "2faa7c98fabcdff48eb6bd07e4847d48a6b8d4e1",
+    "skills/productivity/teach/MISSION-FORMAT.md": "5dac184a319308e2ec0c18c16d6b8d52b9be2748",
+    "skills/productivity/teach/RESOURCES-FORMAT.md": "c94aac6a2634cc229fe0b777fc5cc7da3a28c3d2",
+    "skills/productivity/teach/SKILL.md": "2fad9a36c0c3d861063690fd1ca02aeb765e05f9",
     "skills/productivity/write-a-skill/SKILL.md": "7339c8a38d6c2e1ee5fd721327bca3441a9408be"
   },
   "videos": [
+    {
+      "id": "s5T5oQJcJ6U",
+      "title": "Learn anything with the /teach skill",
+      "published": "2026-06-08"
+    },
     {
       "id": "mh5XZ-L5SFQ",
       "title": "Can Cursor's HARDCORE Review Skill Stop The Slop?",
@@ -132,11 +137,6 @@
       "id": "EJyuu6zlQCg",
       "title": "5 Claude Code skills I use every single day",
       "published": "2026-03-16"
-    },
-    {
-      "id": "Ah9p7v7nJWg",
-      "title": "The 7 phases of AI-driven development",
-      "published": "2026-03-03"
     }
   ]
 }
