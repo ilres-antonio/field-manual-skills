@@ -1,7 +1,8 @@
 # Matt Pocock — skill-related videos for the notebook corpus
 
-The ten videos below were identified via web search and direct user additions
-as the most directly relevant to the Field Manual tutorial. Each is queued in
+The eleven videos below were identified via web search, direct user additions,
+and the `check_skills.py` update detector, as the most directly relevant to the
+Field Manual tutorial. Each is queued in
 `build_notebook.py` to be ingested into a NotebookLM notebook titled
 **"Matt Pocock skills — video corpus (tutorial research)"** after interactive
 auth (`notebooklm login`) is complete.
@@ -102,6 +103,17 @@ before running the driver. The labels here match the labels used in that file.
   ad-libs around the skill text. Risk: long-form (likely 1–3 hours), so the
   NotebookLM ingestion will take longer than the other videos, and the chunk
   density per topic is lower.
+
+### 11. Learn anything with the /teach skill
+- **URL:** https://www.youtube.com/watch?v=s5T5oQJcJ6U
+- **Published:** June 8, 2026
+- **Source:** detected via `check_skills.py` (update detector), 2026-06-16
+- **Why it matters:** Announces `/teach`'s graduation from `in-progress` to
+  `productivity` in mattpocock/skills. `/teach` is *out of scope* for the
+  tutorial's eight core skills (see `CONTEXT.md`), so this video does **not**
+  drive a Phase rewrite. It's ingested as first-party evidence of how Matt
+  frames a learning/teaching workflow — corpus context for a possible future
+  volume, and to keep the corpus aligned with the freshly-refreshed snapshot.
 
 ---
 

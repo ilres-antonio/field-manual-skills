@@ -54,6 +54,7 @@ VIDEOS = [
     ("https://www.youtube.com/watch?v=MzWIIlx0Gpc", "Burn through the backlog from hell with /triage"),
     ("https://www.youtube.com/watch?v=3MP8D-mdheA", "How To De-Slop A Codebase Ruined By AI (with one skill)"),
     ("https://www.youtube.com/watch?v=K-mA3MZ_EzU", "LIVE: Watch me build a brand-new project from scratch"),
+    ("https://www.youtube.com/watch?v=s5T5oQJcJ6U", "Learn anything with the /teach skill"),
 ]
 
 # Questions designed to extract claims the tutorial currently approximates
@@ -167,6 +168,13 @@ QUESTIONS = [
      "and if so, what reason does he give in the moment? (4) What does the live audience ask "
      "that he answers, and does any answer surprise the framing in his polished content? "
      "Quote him directly where possible."),
+
+    ("teach-deepdive",
+     "In the 'Learn anything with the /teach skill' video specifically, what is "
+     "the /teach skill designed to do, and what is the workflow Matt describes? "
+     "What artifacts does it produce (e.g., a mission, glossary, learning record, "
+     "resources list)? How does /teach differ from simply asking Claude to explain "
+     "a topic? Quote him directly where possible."),
 ]
 
 

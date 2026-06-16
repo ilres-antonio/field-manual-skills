@@ -39,7 +39,7 @@ introduced — don't add unannounced jargon.
 
 ## Research workflow
 
-- **corpus** — the curated 10 videos in `videos.md` that have been
+- **corpus** — the curated 11 videos in `videos.md` that have been
   ingested into the NotebookLM notebook for citation purposes. Distinct
   from the *snapshot videos* (see below).
 - **snapshot videos** — the 15 most-recent uploads from Matt&#39;s YouTube
