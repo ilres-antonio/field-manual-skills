@@ -1,8 +1,12 @@
 # Matt Pocock — skill-related videos for the notebook corpus
 
-The eleven videos below were identified via web search, direct user additions,
+The twenty-six videos below were identified via web search, direct user additions,
 and the `check_skills.py` update detector, as the most directly relevant to the
-Field Manual tutorial. Each is queued in
+Field Manual tutorial. Entries 1-11 are the original verified corpus; entries
+12-26 were added on 2026-08-26 when the detector found 71 days of channel drift
+alongside the upstream v1.2 reorganisation (`694fa30` → `6654f6b`). Those fifteen
+are **not yet ingested** — their notes below carry expectations to test, not
+findings to cite. Each is queued in
 `build_notebook.py` to be ingested into a NotebookLM notebook titled
 **"Matt Pocock skills — video corpus (tutorial research)"** after interactive
 auth (`notebooklm login`) is complete.
@@ -140,6 +144,121 @@ before running the driver. The labels here match the labels used in that file.
   uncharacteristic of Matt; almost certainly a third-party commentary video.
   Excluded for the same reason.
 
+### 12. LIVE: Uncle Bob on Software Fundamentals in the Age of AI
+- **URL:** https://www.youtube.com/watch?v=zcLPGC-tvgk
+- **Published:** August 19, 2026
+- **Why it matters:** A long-form conversation with Robert C. Martin. Not a skills video, but the corpus's
+  only outside voice on whether the fundamentals the skills encode (small modules, tests
+  first, naming) still hold when an agent writes the code. Useful as a check on the
+  tutorial's framing in Phase V, which asserts that discipline matters *more* with agents,
+  not less — currently our own claim, unsourced.
+
+### 13. New Skills! v1.2 brings /wait-what, /writing-for-agents, and fixes /grill-me
+- **URL:** https://www.youtube.com/watch?v=gaDdrDdczO4
+- **Published:** August 5, 2026
+- **Why it matters:** **The keystone video for this round.** This is the release announcement for the v1.2
+  reorganisation that moved upstream from `694fa30` to `6654f6b` — the same change that
+  renamed `/diagnose` and `/to-prd`, deleted `/to-issues`, `/zoom-out`, `/write-a-skill`
+  and `/caveman`, and split `/domain-modeling` and `/codebase-design` out as new
+  model-invoked siblings. The GitHub diff tells us *what* moved; this should tell us *why*.
+
+### 14. /wayfinder: Nothing is too big to plan anymore
+- **URL:** https://www.youtube.com/watch?v=F3lL98Pj90o
+- **Published:** July 30, 2026
+- **Why it matters:** Introduces `/wayfinder`, the closest thing to a replacement for the deleted `/zoom-out`.
+  The tutorial's Phase V cites `/zoom-out` as the altitude-gaining precondition for
+  spotting shallow modules; `/wayfinder` is framed upstream as planning work too large for
+  one agent session, which is a *different* job. Needed to decide whether Phase V's claim
+  survives the rename or has to be rewritten.
+
+### 15. Don't waste time on specs: /prototype instead
+- **URL:** https://www.youtube.com/watch?v=n0VhIVtviC0
+- **Published:** July 23, 2026
+- **Why it matters:** Argues prototyping over specification — in direct tension with the tutorial's Phase III,
+  which routes idea → `/to-spec` → `/to-tickets` before any code is written. If Matt now
+  recommends skipping the spec for some class of work, Phase III needs a stated boundary
+  condition rather than a straight-line sequence.
+
+### 16. There is no such thing as greenfield
+- **URL:** https://www.youtube.com/watch?v=0l7zOp260yc
+- **Published:** July 21, 2026
+- **Why it matters:** Challenges the tutorial's premise directly: the Field Manual builds a Pomodoro app from
+  nothing, which is a greenfield exercise. If Matt's position is that greenfield is a
+  fiction, the tutorial should say what the exercise stands in for rather than implying a
+  blank directory is the normal case.
+
+### 17. Using /grill-me for interviews?!
+- **URL:** https://www.youtube.com/watch?v=5hYsBUMmr-I
+- **Published:** July 20, 2026
+- **Why it matters:** An off-label use of `/grill-me` (interviewing people, not plans). Low priority for the
+  build sequence, but it bears on Phase II's claim about what grilling *is* — a general
+  interrogation engine rather than a planning-specific tool.
+
+### 18. What is the dumb zone?
+- **URL:** https://www.youtube.com/watch?v=sOd7svdu_1I
+- **Published:** July 20, 2026
+- **Why it matters:** **Already sourced by the tutorial, second-hand.** The “dumb zone” aside in Phase IV
+  quotes the ~120k-usable-context claim, currently attributed to a different video in the
+  corpus. This is the dedicated treatment; it should either confirm that quote or give us
+  a better one. It matters more now that `/caveman` — the aside's recommended mitigation
+  — has been deleted upstream.
+
+### 19. Do you even need human review?
+- **URL:** https://www.youtube.com/watch?v=Yn8h5Ip-L9c
+- **Published:** July 20, 2026
+- **Why it matters:** Bears on the new `/code-review` skill (which supersedes the in-progress `/review`) and on
+  the tutorial's Phase V stance that the human is the “strategic programmer” making the
+  calls. If Matt has moved toward agent-only review for some changes, that stance needs
+  qualifying.
+
+### 20. This change makes /grill-me SO MUCH BETTER
+- **URL:** https://www.youtube.com/watch?v=tLyfDIt9wHg
+- **Published:** July 17, 2026
+- **Why it matters:** A concrete change to `/grill-me`, which the diff confirms was modified this round.
+  Phase II leans on `/grill-me` heavily; this should tell us whether the tutorial's
+  description of what a grilling session feels like is still accurate.
+
+### 21. Framework Hell, Tutorial Hell... now Skill Hell
+- **URL:** https://www.youtube.com/watch?v=32LyZyFQhCQ
+- **Published:** July 17, 2026
+- **Why it matters:** A caution about skill proliferation — pointed squarely at a tutorial whose structure is
+  “here are eight skills, in order.” Worth surfacing as a counterweight in the closing
+  section rather than ignoring; a field manual that never warns about over-tooling is
+  selling something.
+
+### 22. Kill your MEMORY.md
+- **URL:** https://www.youtube.com/watch?v=A0scuiiGBC4
+- **Published:** July 17, 2026
+- **Why it matters:** An argued reversal on a common practice. Relevant to the tutorial's Phase I setup advice
+  and to anything it says about persistent agent memory versus `CONTEXT.md` and ADRs as
+  the durable record.
+
+### 23. Do software fundamentals still matter?
+- **URL:** https://www.youtube.com/watch?v=eEjBhVI9Qok
+- **Published:** July 16, 2026
+- **Why it matters:** Short-form companion to the Uncle Bob stream. Same question, Matt's own framing, and far
+  cheaper to quote than a multi-hour livestream.
+
+### 24. My /teach skill is still insane
+- **URL:** https://www.youtube.com/watch?v=glaIO6OYh74
+- **Published:** July 16, 2026
+- **Why it matters:** Follow-up to the `/teach` video already in the corpus (`s5T5oQJcJ6U`), whose
+  stateful/stateless insight is already integrated into the tutorial. The diff shows all
+  five `/teach` files changed this round, so this is the likeliest source for what moved.
+
+### 25. Claude Code's system tools are SO BLOATED
+- **URL:** https://www.youtube.com/watch?v=oLx4yCbeklQ
+- **Published:** July 16, 2026
+- **Why it matters:** On the context cost of tool definitions. Connects to the dumb-zone material: if system
+  tooling eats the budget before your code does, that sharpens the tutorial's advice on
+  when to hand off.
+
+### 26. mattpocock/skills: A complete AI Coding workflow, end-to-end
+- **URL:** https://www.youtube.com/watch?v=M6mYodf0dJM
+- **Published:** July 16, 2026
+- **Why it matters:** The end-to-end walkthrough of the whole repo post-reorganisation. The single best source
+  for checking whether the tutorial's six-phase journey still matches Matt's own sequence,
+  which is the spine of the entire Field Manual.
 ---
 
 ## Next step
@@ -159,8 +278,8 @@ Then:
 py C:\Users\antonio\Documents\projects\skills\build_notebook.py
 ```
 
-The driver creates the notebook, ingests all six videos (this typically takes several
-minutes — NotebookLM processes each one server-side), runs 8 targeted questions, and
+The driver creates the notebook, ingests each video (this typically takes several
+minutes — NotebookLM processes each one server-side), runs the question set, and
 writes the answers to:
 
 - `notebook_output.json` — full structured output (sources, Q&A, citations, errors)
