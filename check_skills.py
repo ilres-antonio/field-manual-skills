@@ -169,9 +169,12 @@ def grep_index_for_slugs(slugs: list[str]) -> dict[str, list[int]]:
     for slug in dict.fromkeys(slugs):
         if not slug:
             continue
-        needle = "/" + slug
+        # Word-boundary match: a plain substring test makes "/implement"
+        # match a page that only ever says "/implement-spec", inventing a
+        # citation the tutorial never made.
+        needle = re.compile(re.escape("/" + slug) + r"(?![a-z0-9-])")
         for i, line in enumerate(lines, 1):
-            if needle in line:
+            if needle.search(line):
                 hits.setdefault(slug, []).append(i)
     return hits
 
@@ -250,7 +253,7 @@ def refresh_colophon(snapshot: dict) -> None:
 
 def render_recommendations(
     old: dict, repo_commit: str, changed: list[str], added: list[str],
-    removed: list[str], new_videos: list[dict],
+    removed: list[str], new_videos: list[dict], current_skills: dict[str, str],
 ) -> None:
     print()
     print("  Recommended next steps:")
@@ -274,22 +277,74 @@ def render_recommendations(
     # files (SKILL.md + format docs), and all of them changing is still one
     # skill to re-verify. dict.fromkeys dedupes while preserving first-seen
     # order, so the changed/added/removed grouping survives.
-    affected_slugs = list(dict.fromkeys(
-        s for s in (slug_from_path(p) for p in (changed + added + removed)) if s
+    changed_slugs = list(dict.fromkeys(
+        s for s in (slug_from_path(p) for p in (changed + added)) if s
     ))
-    if affected_slugs or new_videos:
-        print(f"  {n}. Add per-change questions to QUESTIONS in build_notebook.py")
+    # A removed FILE is not a removed SKILL. Upstream moves docs between
+    # skill directories (grill-with-docs/ADR-FORMAT.md -> domain-modeling/,
+    # tdd/deep-modules.md -> codebase-design/), which deletes paths under a
+    # skill that is still very much alive. Only treat a slug as retired when
+    # nothing of it survives in the current tree.
+    live_slugs = {s for s in (slug_from_path(p) for p in current_skills) if s}
+    removed_slugs = [s for s in dict.fromkeys(
+        s for s in (slug_from_path(p) for p in removed) if s
+    ) if s not in live_slugs]
+    affected_slugs = list(dict.fromkeys(changed_slugs + removed_slugs))
+
+    # The notebook's corpus is VIDEO TRANSCRIPTS. It cannot read a repo diff,
+    # so never ask it what changed in a file — that question is answered by
+    # the compare URL in step 1, for free and exactly. What the corpus alone
+    # can answer is Matt's *rationale* and *usage*, so ask only that.
+    #
+    # Scope follows the TUTORIAL, not the size of the upstream diff: a skill
+    # that changed upstream but is never cited on the page needs no question,
+    # because the page makes no claim about it to verify. grep_index_for_slugs
+    # already computes that intersection for step 5; reuse it here.
+    hits  = grep_index_for_slugs(affected_slugs)
+    cited = [s for s in changed_slugs if s in hits]
+
+    if cited or removed_slugs or new_videos:
+        print(f"  {n}. Add questions to QUESTIONS in build_notebook.py")
         print(f"     (timestamped keys preserve history across re-checks):")
-        date_tag = datetime.now(timezone.utc).strftime("%Y-%m")
-        for slug in affected_slugs:
-            print(f'       ("{slug}-update-{date_tag}",')
-            print(f'        "What changed in /{slug} since the previous verification? '
-                  f'Quote any new or removed instructions Matt added."),')
+        date_tag  = datetime.now(timezone.utc).strftime("%Y-%m")
+        old_short = old["repo_commit"][:7]
+        new_short = repo_commit[:7]
+        # Every question carries an explicit escape hatch. Without one, a
+        # skill name alone is enough to invite a plausible invented answer.
+        NC = ("If these videos do not discuss it, answer exactly "
+              "'not covered' rather than inferring from the skill name.")
+
+        print(f'       ("release-{date_tag}",')
+        print(f'        "Upstream mattpocock/skills moved from {old_short} to {new_short}. '
+              f'Do any of these videos announce or explain that change? List the skills '
+              f'Matt says he added, renamed, merged or deleted, and the reason he gives '
+              f'for each. Quote him directly. {NC}"),')
+
+        if removed_slugs:
+            names = ", ".join("/" + s for s in removed_slugs)
+            print(f'       ("retired-{date_tag}",')
+            print(f'        "These skills were deleted upstream in this round: {names}. '
+                  f'For each, do these videos say why it was retired and what took over '
+                  f'its job? Answer per skill, only from what Matt actually says. {NC}"),')
+
+        for slug in cited:
+            print(f'       ("{slug}-{date_tag}",')
+            print(f'        "The tutorial makes claims about /{slug}, which changed '
+                  f'upstream this round. Across these videos, how does Matt describe '
+                  f'/{slug}: when he reaches for it, what it produces, and any constraint '
+                  f'or warning he attaches to it? Quote him directly. {NC}"),')
+
         for v in new_videos:
             key = re.sub(r"[^a-z0-9]+", "-", v["title"].lower()).strip("-")[:40]
             print(f'       ("{key}-{date_tag}",')
             print(f'        "Summarize the central new claim Matt makes in this video '
                   f'that the previous corpus did not cover. Quote where possible."),')
+
+        # Never narrow silently: say what was dropped and why.
+        skipped = [s for s in changed_slugs if s not in hits]
+        if skipped:
+            print(f"     ({len(skipped)} changed skill(s) not cited by index.html, so no "
+                  f"question generated: {', '.join('/' + s for s in skipped)})")
         n += 1
 
     if affected_slugs or new_videos:
@@ -363,7 +418,8 @@ def main(argv: list[str] | None = None) -> int:
                 for v in new_vids:
                     print(f"    + [{v['id']}] {v['title']}  ({v['published']})")
 
-            render_recommendations(old, repo_commit, changed, added, removed, new_vids)
+            render_recommendations(old, repo_commit, changed, added, removed,
+                                   new_vids, current_skills)
 
     print("=" * 72)
 
