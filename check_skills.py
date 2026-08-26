@@ -150,9 +150,14 @@ def slug_from_path(path: str) -> str | None:
     """
     'skills/engineering/grill-with-docs/SKILL.md' → 'grill-with-docs'.
     Returns None if the path doesn't fit the expected layout.
+
+    Requires depth >= 4 (skills/<category>/<skill>/<file>) so that a category
+    index like 'skills/engineering/README.md' yields None rather than the
+    category name — 'engineering' is a bucket, not a skill, and treating it as
+    one produced junk recommendations ("What changed in /engineering?").
     """
     parts = path.split("/")
-    return parts[-2] if len(parts) >= 3 else None
+    return parts[-2] if len(parts) >= 4 else None
 
 
 def grep_index_for_slugs(slugs: list[str]) -> dict[str, list[int]]:
@@ -161,7 +166,7 @@ def grep_index_for_slugs(slugs: list[str]) -> dict[str, list[int]]:
         return {}
     lines = INDEX_PATH.read_text(encoding="utf-8").splitlines()
     hits: dict[str, list[int]] = {}
-    for slug in slugs:
+    for slug in dict.fromkeys(slugs):
         if not slug:
             continue
         needle = "/" + slug
@@ -181,11 +186,30 @@ VERIFIED_LINE_RX = re.compile(
 
 def corpus_video_count() -> int:
     """
-    Count videos in the curated corpus by reading videos.md (the source of truth
-    for what's been researched). Snapshot.videos counts the RSS feed (Matt's
-    last 15 uploads, regardless of whether we've ingested them) — different
-    number, different meaning.
+    Count videos actually VERIFIED — i.e. successfully ingested into the
+    notebook, per notebook_output.json. That is the number the colophon may
+    honestly claim, because it is the number the citations can be drawn from.
+
+    Three different counts live in this project; do not mix them up:
+      * snapshot["videos"]  — Matt's last 15 uploads per RSS, ingested or not.
+      * videos.md headings  — the curated QUEUE, including entries added by a
+                              detector run but not yet fed to NotebookLM.
+      * this function       — sources with a source_id in notebook_output.json,
+                              the subset actually available to cite.
+
+    videos.md is the fallback only when no notebook output exists yet (first
+    run), where queued and ingested are trivially the same set.
     """
+    out = Path("notebook_output.json")
+    if out.exists():
+        try:
+            data = json.loads(out.read_text(encoding="utf-8"))
+            ingested = sum(1 for src in data.get("sources", []) if src.get("source_id"))
+            if ingested:
+                return ingested
+        except Exception as e:
+            print(f"  ! could not read {out} for the corpus count: {e!r}")
+
     p = Path("videos.md")
     if not p.exists():
         return 0
@@ -246,8 +270,13 @@ def render_recommendations(
             print(f'       ("https://www.youtube.com/watch?v={v["id"]}", "{safe_title}"),')
         n += 1
 
-    affected_slugs = [slug_from_path(p) for p in (changed + added + removed)]
-    affected_slugs = [s for s in affected_slugs if s]
+    # One slug per *skill*, not per file: a skill directory holds several .md
+    # files (SKILL.md + format docs), and all of them changing is still one
+    # skill to re-verify. dict.fromkeys dedupes while preserving first-seen
+    # order, so the changed/added/removed grouping survives.
+    affected_slugs = list(dict.fromkeys(
+        s for s in (slug_from_path(p) for p in (changed + added + removed)) if s
+    ))
     if affected_slugs or new_videos:
         print(f"  {n}. Add per-change questions to QUESTIONS in build_notebook.py")
         print(f"     (timestamped keys preserve history across re-checks):")
