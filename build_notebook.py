@@ -55,6 +55,23 @@ VIDEOS = [
     ("https://www.youtube.com/watch?v=3MP8D-mdheA", "How To De-Slop A Codebase Ruined By AI (with one skill)"),
     ("https://www.youtube.com/watch?v=K-mA3MZ_EzU", "LIVE: Watch me build a brand-new project from scratch"),
     ("https://www.youtube.com/watch?v=s5T5oQJcJ6U", "Learn anything with the /teach skill"),
+
+    # --- added 2026-08-26 from check_skills.py (RSS drift since 2026-06-16) ---
+    ("https://www.youtube.com/watch?v=zcLPGC-tvgk", "LIVE: Uncle Bob on Software Fundamentals in the Age of AI"),
+    ("https://www.youtube.com/watch?v=gaDdrDdczO4", "New Skills! v1.2 brings /wait-what, /writing-for-agents, and fixes /grill-me"),
+    ("https://www.youtube.com/watch?v=F3lL98Pj90o", "/wayfinder: Nothing is too big to plan anymore"),
+    ("https://www.youtube.com/watch?v=n0VhIVtviC0", "Don't waste time on specs: /prototype instead"),
+    ("https://www.youtube.com/watch?v=0l7zOp260yc", "There is no such thing as greenfield"),
+    ("https://www.youtube.com/watch?v=5hYsBUMmr-I", "Using /grill-me for interviews?!"),
+    ("https://www.youtube.com/watch?v=sOd7svdu_1I", "What is the dumb zone?"),
+    ("https://www.youtube.com/watch?v=Yn8h5Ip-L9c", "Do you even need human review?"),
+    ("https://www.youtube.com/watch?v=tLyfDIt9wHg", "This change makes /grill-me SO MUCH BETTER"),
+    ("https://www.youtube.com/watch?v=32LyZyFQhCQ", "Framework Hell, Tutorial Hell... now Skill Hell"),
+    ("https://www.youtube.com/watch?v=A0scuiiGBC4", "Kill your MEMORY.md"),
+    ("https://www.youtube.com/watch?v=eEjBhVI9Qok", "Do software fundamentals still matter?"),
+    ("https://www.youtube.com/watch?v=glaIO6OYh74", "My /teach skill is still insane"),
+    ("https://www.youtube.com/watch?v=oLx4yCbeklQ", "Claude Code's system tools are SO BLOATED"),
+    ("https://www.youtube.com/watch?v=M6mYodf0dJM", "mattpocock/skills: A complete AI Coding workflow, end-to-end"),
 ]
 
 # Questions designed to extract claims the tutorial currently approximates
@@ -175,6 +192,199 @@ QUESTIONS = [
      "What artifacts does it produce (e.g., a mission, glossary, learning record, "
      "resources list)? How does /teach differ from simply asking Claude to explain "
      "a topic? Quote him directly where possible."),
+    # --- 2026-08 verification round: upstream moved 694fa30 -> 6654f6b ---
+    # Per-skill drift questions + one per newly-published video. Keys are
+    # timestamped so a future round adds a new generation rather than
+    # overwriting these answers (build_notebook.py skips cached keys).
+
+    ("grill-with-docs-update-2026-08",
+     "What changed in /grill-with-docs since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("improve-codebase-architecture-update-2026-08",
+     "What changed in /improve-codebase-architecture since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("prototype-update-2026-08",
+     "What changed in /prototype since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("setup-matt-pocock-skills-update-2026-08",
+     "What changed in /setup-matt-pocock-skills since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("tdd-update-2026-08",
+     "What changed in /tdd since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("triage-update-2026-08",
+     "What changed in /triage since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("writing-beats-update-2026-08",
+     "What changed in /writing-beats since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("writing-fragments-update-2026-08",
+     "What changed in /writing-fragments since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("writing-shape-update-2026-08",
+     "What changed in /writing-shape since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("git-guardrails-claude-code-update-2026-08",
+     "What changed in /git-guardrails-claude-code since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("setup-pre-commit-update-2026-08",
+     "What changed in /setup-pre-commit since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("grill-me-update-2026-08",
+     "What changed in /grill-me since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("handoff-update-2026-08",
+     "What changed in /handoff since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("teach-update-2026-08",
+     "What changed in /teach since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("ask-matt-update-2026-08",
+     "What changed in /ask-matt since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("code-review-update-2026-08",
+     "What changed in /code-review since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("codebase-design-update-2026-08",
+     "What changed in /codebase-design since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("diagnosing-bugs-update-2026-08",
+     "What changed in /diagnosing-bugs since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("domain-modeling-update-2026-08",
+     "What changed in /domain-modeling since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("implement-update-2026-08",
+     "What changed in /implement since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("research-update-2026-08",
+     "What changed in /research since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("resolving-merge-conflicts-update-2026-08",
+     "What changed in /resolving-merge-conflicts since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("to-spec-update-2026-08",
+     "What changed in /to-spec since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("to-tickets-update-2026-08",
+     "What changed in /to-tickets since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("wayfinder-update-2026-08",
+     "What changed in /wayfinder since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("wizard-update-2026-08",
+     "What changed in /wizard since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("claude-handoff-update-2026-08",
+     "What changed in /claude-handoff since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("implement-spec-update-2026-08",
+     "What changed in /implement-spec since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("loop-me-update-2026-08",
+     "What changed in /loop-me since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("retro-update-2026-08",
+     "What changed in /retro since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("setup-ts-deep-modules-update-2026-08",
+     "What changed in /setup-ts-deep-modules since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("grilling-update-2026-08",
+     "What changed in /grilling since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("to-questionnaire-update-2026-08",
+     "What changed in /to-questionnaire since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("wait-what-update-2026-08",
+     "What changed in /wait-what since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("writing-for-agents-update-2026-08",
+     "What changed in /writing-for-agents since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("design-an-interface-update-2026-08",
+     "What changed in /design-an-interface since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("qa-update-2026-08",
+     "What changed in /qa since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("request-refactor-plan-update-2026-08",
+     "What changed in /request-refactor-plan since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("ubiquitous-language-update-2026-08",
+     "What changed in /ubiquitous-language since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("diagnose-update-2026-08",
+     "What changed in /diagnose since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("to-issues-update-2026-08",
+     "What changed in /to-issues since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("to-prd-update-2026-08",
+     "What changed in /to-prd since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("zoom-out-update-2026-08",
+     "What changed in /zoom-out since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("review-update-2026-08",
+     "What changed in /review since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("edit-article-update-2026-08",
+     "What changed in /edit-article since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("obsidian-vault-update-2026-08",
+     "What changed in /obsidian-vault since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("caveman-update-2026-08",
+     "What changed in /caveman since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("write-a-skill-update-2026-08",
+     "What changed in /write-a-skill since the previous verification? Quote any new or removed instructions Matt added."),
+
+    ("live-uncle-bob-on-software-fundamentals--2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("new-skills-v1-2-brings-wait-what-writing-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("wayfinder-nothing-is-too-big-to-plan-any-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("don-t-waste-time-on-specs-prototype-inst-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("there-is-no-such-thing-as-greenfield-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("using-grill-me-for-interviews-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("what-is-the-dumb-zone-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("do-you-even-need-human-review-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("this-change-makes-grill-me-so-much-bette-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("framework-hell-tutorial-hell-now-skill-h-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("kill-your-memory-md-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("do-software-fundamentals-still-matter-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("my-teach-skill-is-still-insane-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("claude-code-s-system-tools-are-so-bloate-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
+
+    ("mattpocock-skills-a-complete-ai-coding-w-2026-08",
+     "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
 ]
 
 
