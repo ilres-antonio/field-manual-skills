@@ -193,153 +193,76 @@ QUESTIONS = [
      "resources list)? How does /teach differ from simply asking Claude to explain "
      "a topic? Quote him directly where possible."),
     # --- 2026-08 verification round: upstream moved 694fa30 -> 6654f6b ---
-    # Per-skill drift questions + one per newly-published video. Keys are
-    # timestamped so a future round adds a new generation rather than
-    # overwriting these answers (build_notebook.py skips cached keys).
+    # Scoped to what the notebook can actually answer. The corpus is video
+    # transcripts, so it is never asked what changed in a file — step 1 of
+    # check_skills.py answers that from the GitHub compare, exactly and for
+    # free. These ask for Matt's rationale and usage, which only he can give.
+    #
+    # Scope follows the TUTORIAL, not the upstream diff: 18 skills changed
+    # upstream without being cited on the page, so they carry no claim to
+    # verify and get no question. Every question ends with an explicit
+    # 'not covered' escape hatch — without one, a skill name alone is enough
+    # to invite a plausible invented answer.
+    #
+    # Keys are timestamped so a future round adds a new generation rather
+    # than overwriting these (build_notebook.py skips cached keys).
 
-    ("grill-with-docs-update-2026-08",
-     "What changed in /grill-with-docs since the previous verification? Quote any new or removed instructions Matt added."),
+    ("release-2026-08",
+     "Upstream mattpocock/skills moved from 694fa30 to 6654f6b. Do any of these videos announce or explain that change? List the skills Matt says he added, renamed, merged or deleted, and the reason he gives for each. Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("improve-codebase-architecture-update-2026-08",
-     "What changed in /improve-codebase-architecture since the previous verification? Quote any new or removed instructions Matt added."),
+    ("retired-2026-08",
+     "These skills were deleted upstream in this round: /design-an-interface, /qa, /request-refactor-plan, /ubiquitous-language, /diagnose, /to-issues, /to-prd, /zoom-out, /review, /edit-article, /obsidian-vault, /caveman, /write-a-skill. For each, do these videos say why it was retired and what took over its job? Answer per skill, only from what Matt actually says. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("prototype-update-2026-08",
-     "What changed in /prototype since the previous verification? Quote any new or removed instructions Matt added."),
+    ("grill-with-docs-2026-08",
+     "The tutorial makes claims about /grill-with-docs, which changed upstream this round. Across these videos, how does Matt describe /grill-with-docs: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("setup-matt-pocock-skills-update-2026-08",
-     "What changed in /setup-matt-pocock-skills since the previous verification? Quote any new or removed instructions Matt added."),
+    ("improve-codebase-architecture-2026-08",
+     "The tutorial makes claims about /improve-codebase-architecture, which changed upstream this round. Across these videos, how does Matt describe /improve-codebase-architecture: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("tdd-update-2026-08",
-     "What changed in /tdd since the previous verification? Quote any new or removed instructions Matt added."),
+    ("prototype-2026-08",
+     "The tutorial makes claims about /prototype, which changed upstream this round. Across these videos, how does Matt describe /prototype: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("triage-update-2026-08",
-     "What changed in /triage since the previous verification? Quote any new or removed instructions Matt added."),
+    ("setup-matt-pocock-skills-2026-08",
+     "The tutorial makes claims about /setup-matt-pocock-skills, which changed upstream this round. Across these videos, how does Matt describe /setup-matt-pocock-skills: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("writing-beats-update-2026-08",
-     "What changed in /writing-beats since the previous verification? Quote any new or removed instructions Matt added."),
+    ("tdd-2026-08",
+     "The tutorial makes claims about /tdd, which changed upstream this round. Across these videos, how does Matt describe /tdd: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("writing-fragments-update-2026-08",
-     "What changed in /writing-fragments since the previous verification? Quote any new or removed instructions Matt added."),
+    ("triage-2026-08",
+     "The tutorial makes claims about /triage, which changed upstream this round. Across these videos, how does Matt describe /triage: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("writing-shape-update-2026-08",
-     "What changed in /writing-shape since the previous verification? Quote any new or removed instructions Matt added."),
+    ("git-guardrails-claude-code-2026-08",
+     "The tutorial makes claims about /git-guardrails-claude-code, which changed upstream this round. Across these videos, how does Matt describe /git-guardrails-claude-code: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("git-guardrails-claude-code-update-2026-08",
-     "What changed in /git-guardrails-claude-code since the previous verification? Quote any new or removed instructions Matt added."),
+    ("setup-pre-commit-2026-08",
+     "The tutorial makes claims about /setup-pre-commit, which changed upstream this round. Across these videos, how does Matt describe /setup-pre-commit: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("setup-pre-commit-update-2026-08",
-     "What changed in /setup-pre-commit since the previous verification? Quote any new or removed instructions Matt added."),
+    ("grill-me-2026-08",
+     "The tutorial makes claims about /grill-me, which changed upstream this round. Across these videos, how does Matt describe /grill-me: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("grill-me-update-2026-08",
-     "What changed in /grill-me since the previous verification? Quote any new or removed instructions Matt added."),
+    ("handoff-2026-08",
+     "The tutorial makes claims about /handoff, which changed upstream this round. Across these videos, how does Matt describe /handoff: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("handoff-update-2026-08",
-     "What changed in /handoff since the previous verification? Quote any new or removed instructions Matt added."),
+    ("teach-2026-08",
+     "The tutorial makes claims about /teach, which changed upstream this round. Across these videos, how does Matt describe /teach: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("teach-update-2026-08",
-     "What changed in /teach since the previous verification? Quote any new or removed instructions Matt added."),
+    ("diagnosing-bugs-2026-08",
+     "The tutorial makes claims about /diagnosing-bugs, which changed upstream this round. Across these videos, how does Matt describe /diagnosing-bugs: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("ask-matt-update-2026-08",
-     "What changed in /ask-matt since the previous verification? Quote any new or removed instructions Matt added."),
+    ("domain-modeling-2026-08",
+     "The tutorial makes claims about /domain-modeling, which changed upstream this round. Across these videos, how does Matt describe /domain-modeling: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("code-review-update-2026-08",
-     "What changed in /code-review since the previous verification? Quote any new or removed instructions Matt added."),
+    ("to-spec-2026-08",
+     "The tutorial makes claims about /to-spec, which changed upstream this round. Across these videos, how does Matt describe /to-spec: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("codebase-design-update-2026-08",
-     "What changed in /codebase-design since the previous verification? Quote any new or removed instructions Matt added."),
+    ("to-tickets-2026-08",
+     "The tutorial makes claims about /to-tickets, which changed upstream this round. Across these videos, how does Matt describe /to-tickets: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("diagnosing-bugs-update-2026-08",
-     "What changed in /diagnosing-bugs since the previous verification? Quote any new or removed instructions Matt added."),
+    ("implement-spec-2026-08",
+     "The tutorial makes claims about /implement-spec, which changed upstream this round. Across these videos, how does Matt describe /implement-spec: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
-    ("domain-modeling-update-2026-08",
-     "What changed in /domain-modeling since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("implement-update-2026-08",
-     "What changed in /implement since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("research-update-2026-08",
-     "What changed in /research since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("resolving-merge-conflicts-update-2026-08",
-     "What changed in /resolving-merge-conflicts since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("to-spec-update-2026-08",
-     "What changed in /to-spec since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("to-tickets-update-2026-08",
-     "What changed in /to-tickets since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("wayfinder-update-2026-08",
-     "What changed in /wayfinder since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("wizard-update-2026-08",
-     "What changed in /wizard since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("claude-handoff-update-2026-08",
-     "What changed in /claude-handoff since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("implement-spec-update-2026-08",
-     "What changed in /implement-spec since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("loop-me-update-2026-08",
-     "What changed in /loop-me since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("retro-update-2026-08",
-     "What changed in /retro since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("setup-ts-deep-modules-update-2026-08",
-     "What changed in /setup-ts-deep-modules since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("grilling-update-2026-08",
-     "What changed in /grilling since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("to-questionnaire-update-2026-08",
-     "What changed in /to-questionnaire since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("wait-what-update-2026-08",
-     "What changed in /wait-what since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("writing-for-agents-update-2026-08",
-     "What changed in /writing-for-agents since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("design-an-interface-update-2026-08",
-     "What changed in /design-an-interface since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("qa-update-2026-08",
-     "What changed in /qa since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("request-refactor-plan-update-2026-08",
-     "What changed in /request-refactor-plan since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("ubiquitous-language-update-2026-08",
-     "What changed in /ubiquitous-language since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("diagnose-update-2026-08",
-     "What changed in /diagnose since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("to-issues-update-2026-08",
-     "What changed in /to-issues since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("to-prd-update-2026-08",
-     "What changed in /to-prd since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("zoom-out-update-2026-08",
-     "What changed in /zoom-out since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("review-update-2026-08",
-     "What changed in /review since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("edit-article-update-2026-08",
-     "What changed in /edit-article since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("obsidian-vault-update-2026-08",
-     "What changed in /obsidian-vault since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("caveman-update-2026-08",
-     "What changed in /caveman since the previous verification? Quote any new or removed instructions Matt added."),
-
-    ("write-a-skill-update-2026-08",
-     "What changed in /write-a-skill since the previous verification? Quote any new or removed instructions Matt added."),
+    ("writing-for-agents-2026-08",
+     "The tutorial makes claims about /writing-for-agents, which changed upstream this round. Across these videos, how does Matt describe /writing-for-agents: when he reaches for it, what it produces, and any constraint or warning he attaches to it? Quote him directly. If these videos do not discuss it, answer exactly 'not covered' rather than inferring from the skill name."),
 
     ("live-uncle-bob-on-software-fundamentals--2026-08",
      "Summarize the central new claim Matt makes in this video that the previous corpus did not cover. Quote where possible."),
