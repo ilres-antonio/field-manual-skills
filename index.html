@@ -174,7 +174,7 @@
         <span class="failure__num">iii.</span>
         <h3 class="failure__h">Broken code</h3>
         <p class="failure__body">An agent without a test loop is an agent flying blind. It will swear the timer works, then carry overrun across phase boundaries and silently shorten every break. The fix is a feedback loop tight enough that lying becomes impossible: tests first, then the code that turns them green.</p>
-        <p class="failure__cure">cure → <code>/tdd</code>, <code>/diagnose</code></p>
+        <p class="failure__cure">cure → <code>/tdd</code>, <code>/diagnosing-bugs</code></p>
       </li>
       <li class="failure">
         <span class="failure__num">iv.</span>
@@ -326,8 +326,8 @@
           </p>
 
           <p class="aside aside--side-skill">
-            <span class="aside__label">/ubiquitous-language</span>
-            The standalone predecessor that <code>/grill-with-docs</code> absorbed. Reach for it directly if you want to <em>only</em> sharpen the glossary without a full grilling session &mdash; e.g., when refining <code>CONTEXT.md</code> after a feature has shifted the domain language.
+            <span class="aside__label">/domain-modeling</span>
+            Where the glossary work went. <code>/ubiquitous-language</code> was the standalone predecessor; the v1.2 changeset deleted it as <em>&ldquo;already absorbed by a promoted skill.&rdquo;</em> <code>/domain-modeling</code> is that skill &mdash; model-invoked, so it can fire on its own the moment a conversation starts bending a term &mdash; and it writes to the same <code>CONTEXT.md</code> and ADRs <code>/grill-with-docs</code> does. Reach for it when you want to <em>only</em> sharpen the glossary without a full grilling session.
           </p>
         </div>
 
@@ -336,7 +336,7 @@
           <ul class="skill-chip-list">
             <li><button class="skill-chip" data-copy="/grill-with-docs"><code>/grill-with-docs</code><span class="copy-hint">copy</span></button></li>
             <li><button class="skill-chip" data-copy="/grill-me"><code>/grill-me</code><span class="copy-hint">copy</span></button></li>
-            <li><button class="skill-chip" data-copy="/ubiquitous-language"><code>/ubiquitous-language</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/domain-modeling"><code>/domain-modeling</code><span class="copy-hint">copy</span></button></li>
           </ul>
         </aside>
 
@@ -368,7 +368,7 @@
 {"who":"sys","t":"&mdash; 6 minutes later &mdash;"},
 {"who":"claude","t":"✓ CONTEXT.md updated: session, completed, auto-flip, long break, tick (all defined)"},
 {"who":"claude","t":"✓ 2 open questions flagged: custom durations UI? export of completed log?"},
-{"who":"claude","t":"ready to draft a PRD? try /to-prd"}
+{"who":"claude","t":"ready to draft a PRD? try /to-spec"}
 ]'></code></pre>
         </div>
 
@@ -401,7 +401,7 @@
           <p class="phase__kicker">monday · 10:30 · <em>from talk to tickets</em></p>
           <h2 class="phase__h">Spec.</h2>
           <p class="phase__lede">
-            Two skills, back to back. <code>/to-prd</code> compresses the grill into a single product document and files it as the parent issue. <code>/to-issues</code> slices that PRD into <em>vertical</em> tickets &mdash; each one shippable end to end &mdash; ready for an agent to grab.
+            Two skills, back to back. <code>/to-spec</code> compresses the grill into a single product document and files it as the parent issue. <code>/to-tickets</code> slices that PRD into <em>vertical</em> tickets &mdash; each one shippable end to end &mdash; ready for an agent to grab.
           </p>
         </div>
       </header>
@@ -409,7 +409,7 @@
       <div class="phase__body">
         <div class="phase__narrative">
           <p>This is the joint where most teams &mdash; human or agentic &mdash; lose the thread. A PRD that lives in a Notion doc nobody opens, issues sliced horizontally by layer ("backend ticket / frontend ticket / db ticket") that no single agent can finish alone.</p>
-          <p>Matt's skills go the other way. <code>/to-prd</code> writes the spec <em>into the issue tracker</em> &mdash; the same place the work will happen. <code>/to-issues</code> then breaks it into <em>vertical slices</em>: "timer counts down with pause and resume" is one slice, soup to nuts. The first slice ships in 30 minutes. The fourth ships the product.</p>
+          <p>Matt's skills go the other way. <code>/to-spec</code> writes the spec <em>into the issue tracker</em> &mdash; the same place the work will happen. <code>/to-tickets</code> then breaks it into <em>vertical slices</em>: "timer counts down with pause and resume" is one slice, soup to nuts. The first slice ships in 30 minutes. The fourth ships the product.</p>
 
           <p class="aside">
             <span class="aside__label">vertical slices, defined</span>
@@ -433,15 +433,15 @@
 
           <p class="aside aside--side-skill">
             <span class="aside__label">/triage</span>
-            Not just a bug-intake filter &mdash; <code>/triage</code> manages the <em>entire backlog</em>. It runs a label state machine: <code>needs triage</code> &rarr; <code>needs info</code> &rarr; <code>ready for agent</code> &rarr; <code>ready for human</code> &rarr; <code>won't fix</code>. Matt frames it as <em>"Q management... a translation layer between the humans creating these tickets and the AI that's going to implement them."</em> It pairs naturally with <code>/diagnose</code>: if a triaged item is a bug, the same session can drop into a reproduction loop on the spot.
+            Not just a bug-intake filter &mdash; <code>/triage</code> manages the <em>entire backlog</em>. It runs a label state machine: <code>needs triage</code> &rarr; <code>needs info</code> &rarr; <code>ready for agent</code> &rarr; <code>ready for human</code> &rarr; <code>won't fix</code>. Matt frames it as <em>"Q management... a translation layer between the humans creating these tickets and the AI that's going to implement them."</em> It pairs naturally with <code>/diagnosing-bugs</code>: if a triaged item is a bug, the same session can drop into a reproduction loop on the spot.
           </p>
         </div>
 
         <aside class="phase__skills">
           <p class="skills-label">skills</p>
           <ul class="skill-chip-list">
-            <li><button class="skill-chip" data-copy="/to-prd"><code>/to-prd</code><span class="copy-hint">copy</span></button></li>
-            <li><button class="skill-chip" data-copy="/to-issues"><code>/to-issues</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/to-spec"><code>/to-spec</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/to-tickets"><code>/to-tickets</code><span class="copy-hint">copy</span></button></li>
             <li><button class="skill-chip" data-copy="/prototype"><code>/prototype</code><span class="copy-hint">copy</span></button></li>
           </ul>
         </aside>
@@ -453,10 +453,10 @@
             <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
           </div>
           <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
-{"who":"user","t":"/to-prd"},
+{"who":"user","t":"/to-spec"},
 {"who":"claude","t":"Compressing this session + CONTEXT.md into a PRD..."},
 {"who":"claude","t":"✓ filed issue #1 &mdash; PRD: Pomodoro v0.1 (label: type/feat)"},
-{"who":"user","t":"/to-issues #1"},
+{"who":"user","t":"/to-tickets #1"},
 {"who":"claude","t":"Slicing PRD into vertical tickets. Each should be shippable alone."},
 {"who":"claude","t":"Proposed slices:"},
 {"who":"claude","t":"  #2  timer: count down work, start/pause/reset"},
@@ -534,8 +534,8 @@
           </p>
 
           <p class="aside aside--side-skill">
-            <span class="aside__label">/caveman &mdash; mind the dumb zone</span>
-            Matt notes that despite advertised 1M-token context windows, <em>"for proper smart tasks you've only got about 120k to work with."</em> Past that, attention diffuses and quality degrades. Switch to <code>/caveman</code> mode mid-build &mdash; ~75% fewer tokens per response &mdash; to extend the session before you hit the dumb zone and need <code>/handoff</code>.
+            <span class="aside__label">mind the dumb zone &mdash; the skill is gone, the trap isn&#39;t</span>
+            Matt notes that despite advertised 1M-token context windows, <em>"for proper smart tasks you've only got about 120k to work with."</em> Past that, attention diffuses and quality degrades. This slot used to send you to <code>/caveman</code> &mdash; a terse-output mode worth ~75% fewer tokens per response &mdash; but v1.2 deleted it outright, naming nothing in its place. The mitigation that survives is the one this phase already teaches: watch the budget and <code>/handoff</code> <em>before</em> quality degrades, not after you notice it has.
           </p>
 
           <p class="aside">
@@ -544,8 +544,8 @@
           </p>
 
           <p class="aside aside--side-skill">
-            <span class="aside__label">/dispatching-parallel-agents</span>
-            Slices #4 (persistence) and #5 (notifications) genuinely share no state &mdash; one writes <code>localStorage</code>, the other calls <code>Notification</code>. Dispatch them to two parallel agents and merge at the end. The skill includes the coordination ritual (separate branches, dependency-free tests) that makes parallelization actually faster than sequential.
+            <span class="aside__label">parallel agents &mdash; a pattern, not a skill</span>
+            Slices #4 (persistence) and #5 (notifications) genuinely share no state &mdash; one writes <code>localStorage</code>, the other calls <code>Notification</code>. Dispatch them to two agents on separate branches, keep each slice&#39;s tests dependency-free, and merge at the end. <strong>Correction:</strong> earlier drafts of this manual named a <code>/dispatching-parallel-agents</code> skill here. No such skill has ever existed in <em>mattpocock/skills</em> &mdash; it was ours, not Matt&#39;s, and the coordination ritual is yours to run by hand. The nearest real thing is <code>/implement-spec</code> in the repo&#39;s <code>in-progress/</code> beta bucket, which works a ticket graph across its ready frontier.
           </p>
 
           <p class="aside">
@@ -558,8 +558,6 @@
           <p class="skills-label">skills</p>
           <ul class="skill-chip-list">
             <li><button class="skill-chip" data-copy="/tdd"><code>/tdd</code><span class="copy-hint">copy</span></button></li>
-            <li><button class="skill-chip" data-copy="/caveman"><code>/caveman</code><span class="copy-hint">copy</span></button></li>
-            <li><button class="skill-chip" data-copy="/dispatching-parallel-agents"><code>/dispatching-parallel-agents</code><span class="copy-hint">copy</span></button></li>
           </ul>
         </aside>
 
@@ -642,17 +640,17 @@ test(&quot;pause freezes; later resume continues from there&quot;, () =&gt; {
 
       <div class="phase__body">
         <div class="phase__narrative">
-          <p><strong>The bug.</strong> The slice 2 test &mdash; "work→0 auto-flips to break with full breakMs" &mdash; failed on the first implementation: a 1500ms tick into a 1000ms work session left the break at 1500ms remaining, not 2000ms. The agent had carried the 500ms overrun forward. <code>/diagnose</code> doesn't guess; it runs the loop &mdash; <em>reproduce</em>, <em>minimize</em>, <em>hypothesize</em>, <em>fix</em>. The fix lands with a regression test and an ADR that names the choice: overrun is discarded; each new phase starts fresh.</p>
+          <p><strong>The bug.</strong> The slice 2 test &mdash; "work→0 auto-flips to break with full breakMs" &mdash; failed on the first implementation: a 1500ms tick into a 1000ms work session left the break at 1500ms remaining, not 2000ms. The agent had carried the 500ms overrun forward. <code>/diagnosing-bugs</code> doesn't guess; it runs the loop &mdash; <em>reproduce</em>, <em>minimize</em>, <em>hypothesize</em>, <em>fix</em>. The fix lands with a regression test and an ADR that names the choice: overrun is discarded; each new phase starts fresh.</p>
           <p><strong>The shallow module.</strong> Mid-build, the implementation was about to grow an internal <code>setInterval</code> &mdash; cleaner-looking but harder to test (every test would need a fake timer). <code>/improve-codebase-architecture</code> read the module with one question: <em>what does this own, and what should it own?</em> Answer: it owns state transitions. It does not own time. The UI does. The skill writes the ADR; the module gets a <code>tick()</code> method instead; tests use a manual fake clock; everyone wins.</p>
 
           <p class="aside">
             <span class="aside__label">the rhythm of maintenance</span>
-            Bug → <code>/diagnose</code> → fix + regression test. Drift → <code>/improve-codebase-architecture</code> → refactor + ADR. Same loop, different trigger. Neither skill is heroic; both make care routine.
+            Bug → <code>/diagnosing-bugs</code> → fix + regression test. Drift → <code>/improve-codebase-architecture</code> → refactor + ADR. Same loop, different trigger. Neither skill is heroic; both make care routine.
           </p>
 
           <p class="aside">
             <span class="aside__label">tactical vs strategic</span>
-            <em>"Agents are really really good tactical programmers. They&#39;re able to get on the ground and make changes quickly, but they need someone on the level above them who is the strategic programmer."</em> <code>/improve-codebase-architecture</code> only works with auto-mode off &mdash; the AI is the sergeant scouting the codebase for "deepening opportunities" (shallow modules with wide interfaces), but you, the general, make the calls. The skill then ships a refactor RFC to <code>/to-issues</code> for an AFK agent to execute. Run it every few days.
+            <em>"Agents are really really good tactical programmers. They&#39;re able to get on the ground and make changes quickly, but they need someone on the level above them who is the strategic programmer."</em> <code>/improve-codebase-architecture</code> only works with auto-mode off &mdash; the AI is the sergeant scouting the codebase for "deepening opportunities" (shallow modules with wide interfaces), but you, the general, make the calls. The skill then ships a refactor RFC to <code>/to-tickets</code> for an AFK agent to execute. Run it every few days.
           </p>
 
           <p class="aside">
@@ -661,8 +659,8 @@ test(&quot;pause freezes; later resume continues from there&quot;, () =&gt; {
           </p>
 
           <p class="aside aside--side-skill">
-            <span class="aside__label">/zoom-out</span>
-            Run this <em>before</em> <code>/improve-codebase-architecture</code>, not in place of it. <code>/zoom-out</code> answers "what does this codebase actually look like from above?" — and that altitude is the precondition for spotting which modules are shallow. We used it to notice that <code>app.js</code> was about to grow a timer responsibility that didn't belong there.
+            <span class="aside__label">the altitude pass &mdash; not a skill, a pattern</span>
+            This slot used to be <code>/zoom-out</code>. The v1.2 changeset removed it outright &mdash; <em>&ldquo;Remove zoom-out skill and all references&rdquo;</em> &mdash; and named nothing in its place, so the move it encoded is now yours to make by hand. It still belongs <em>before</em> <code>/improve-codebase-architecture</code>, never in place of it: ask <em>&ldquo;what does this codebase actually look like from above?&rdquo;</em> and get an answer before you go hunting for shallow modules. That altitude is the precondition for spotting them. We used it to notice that <code>app.js</code> was about to grow a timer responsibility that didn&#39;t belong there.
           </p>
 
           <p class="aside">
@@ -674,9 +672,8 @@ test(&quot;pause freezes; later resume continues from there&quot;, () =&gt; {
         <aside class="phase__skills">
           <p class="skills-label">skills</p>
           <ul class="skill-chip-list">
-            <li><button class="skill-chip" data-copy="/diagnose"><code>/diagnose</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/diagnosing-bugs"><code>/diagnosing-bugs</code><span class="copy-hint">copy</span></button></li>
             <li><button class="skill-chip" data-copy="/improve-codebase-architecture"><code>/improve-codebase-architecture</code><span class="copy-hint">copy</span></button></li>
-            <li><button class="skill-chip" data-copy="/zoom-out"><code>/zoom-out</code><span class="copy-hint">copy</span></button></li>
           </ul>
         </aside>
 
@@ -687,7 +684,7 @@ test(&quot;pause freezes; later resume continues from there&quot;, () =&gt; {
             <button class="terminal__play" aria-label="Play simulated session">▶ play</button>
           </div>
           <pre class="terminal__screen"><code class="terminal__transcript" data-script='[
-{"who":"user","t":"/diagnose &mdash; slice 2 test 1 fails: expected remaining=2000, got 1500"},
+{"who":"user","t":"/diagnosing-bugs &mdash; slice 2 test 1 fails: expected remaining=2000, got 1500"},
 {"who":"claude","t":"&mdash; REPRODUCE &mdash;"},
 {"who":"claude","t":"workMs=1000, breakMs=2000, advance 1500ms. confirmed: remaining=1500."},
 {"who":"claude","t":"&mdash; MINIMIZE &mdash;"},
@@ -697,7 +694,7 @@ test(&quot;pause freezes; later resume continues from there&quot;, () =&gt; {
 {"who":"claude","t":"&mdash; FIX &mdash;"},
 {"who":"claude","t":"replace while with if. overrun is discarded by design — recorded in ADR 0001."},
 {"who":"sys","t":"  tests.html  ✓ 12 / 12 passing (was 11)"},
-{"who":"user","t":"/zoom-out"},
+{"who":"user","t":"altitude pass &mdash; what does this codebase look like from above?"},
 {"who":"claude","t":"app.js currently owns: tutorial DOM, copy/scroll-spy/terminal, pomodoro module, pomodoro UI."},
 {"who":"claude","t":"observation: the pomodoro module was about to grow its own setInterval. UI doesn&#39;t need it; tests definitely don&#39;t want it."},
 {"who":"user","t":"/improve-codebase-architecture"},
@@ -759,7 +756,7 @@ remember to wire a tick driver — but the failure mode is loud
 
           <p class="aside">
             <span class="aside__label">matt&#39;s rules for a good HANDOFF.md</span>
-            (1) Save to <code>$TMPDIR</code>, never the repo. (2) Use pointers, never duplicate. (3) Redact API keys, passwords, PII &mdash; markdown ends up in places you don&#39;t expect. (4) Always describe <em>why</em> you&#39;re handing off &mdash; without a stated purpose, the agent can&#39;t write a useful document. (5) Include a <em>Suggested Skills</em> section so the receiving agent knows whether to invoke <code>/grill-with-docs</code>, <code>/diagnose</code>, <code>/prototype</code>, etc.
+            (1) Save to <code>$TMPDIR</code>, never the repo. (2) Use pointers, never duplicate. (3) Redact API keys, passwords, PII &mdash; markdown ends up in places you don&#39;t expect. (4) Always describe <em>why</em> you&#39;re handing off &mdash; without a stated purpose, the agent can&#39;t write a useful document. (5) Include a <em>Suggested Skills</em> section so the receiving agent knows whether to invoke <code>/grill-with-docs</code>, <code>/diagnosing-bugs</code>, <code>/prototype</code>, etc.
           </p>
 
           <p class="aside">
@@ -768,8 +765,8 @@ remember to wire a tick driver — but the failure mode is loud
           </p>
 
           <p class="aside aside--side-skill">
-            <span class="aside__label">/write-a-skill</span>
-            One more thing before we close: during the build we ran the same micro-routine twice &mdash; <em>save state to localStorage, then notify subscribers</em>. That's a pattern worth codifying. <code>/write-a-skill</code> scaffolds a new skill (frontmatter, progressive disclosure, examples) so your <em>own</em> recurring rituals become reusable. The meta-skill: building your toolbox as you build the thing.
+            <span class="aside__label">/writing-for-agents</span>
+            One more thing before we close: during the build we ran the same micro-routine twice &mdash; <em>save state to localStorage, then notify subscribers</em>. That's a pattern worth codifying. <code>/writing-for-agents</code> scaffolds a new skill (frontmatter, progressive disclosure, examples) so your <em>own</em> recurring rituals become reusable. The meta-skill: building your toolbox as you build the thing.
           </p>
         </div>
 
@@ -777,7 +774,7 @@ remember to wire a tick driver — but the failure mode is loud
           <p class="skills-label">skills</p>
           <ul class="skill-chip-list">
             <li><button class="skill-chip" data-copy="/handoff"><code>/handoff</code><span class="copy-hint">copy</span></button></li>
-            <li><button class="skill-chip" data-copy="/write-a-skill"><code>/write-a-skill</code><span class="copy-hint">copy</span></button></li>
+            <li><button class="skill-chip" data-copy="/writing-for-agents"><code>/writing-for-agents</code><span class="copy-hint">copy</span></button></li>
           </ul>
         </aside>
 
@@ -794,13 +791,13 @@ remember to wire a tick driver — but the failure mode is loud
 {"who":"claude","t":"  · why we&#39;re handing off → yes"},
 {"who":"claude","t":"  · open questions on the refactor → yes (1)"},
 {"who":"claude","t":"  · ADR pointers → yes (0002 clock ownership)"},
-{"who":"claude","t":"  · suggested skills → /zoom-out, /improve-codebase-architecture"},
+{"who":"claude","t":"  · suggested skills → altitude pass, then /improve-codebase-architecture"},
 {"who":"claude","t":"  · what we built → NO (pointer to tests.html)"},
 {"who":"claude","t":"  · file structure → NO (pointer to CONTEXT.md)"},
 {"who":"claude","t":"  · API keys / PII → redacted"},
 {"who":"claude","t":"✓ wrote $TMPDIR/handoff-pomodoro-items-refactor.md (54 lines)"},
 {"who":"claude","t":"next agent: paste the file path, it will load the suggested skills automatically."},
-{"who":"user","t":"/write-a-skill: codify the persist-then-notify pattern"},
+{"who":"user","t":"/writing-for-agents: codify the persist-then-notify pattern"},
 {"who":"claude","t":"scaffolding .claude/skills/persist-and-notify/"},
 {"who":"claude","t":"✓ frontmatter, examples, references created. usable next session."},
 {"who":"user","t":"clear, ship it"}
@@ -817,7 +814,7 @@ repo.ts. Out of scope for the current pomodoro session; worth a
 focused agent. <em>Keep this session pure to ship v0.1.</em>
 
 ## Suggested skills
-/zoom-out, then /improve-codebase-architecture (auto-mode OFF)
+altitude pass first, then /improve-codebase-architecture (auto-mode OFF)
 
 ## Pointers (do NOT duplicate these)
 - Current shape: see <code>repo.ts</code> + <code>items.ts</code>
@@ -829,7 +826,7 @@ focused agent. <em>Keep this session pure to ship v0.1.</em>
 ## Open question for the new agent
 items.ts exposes 9 methods; 6 are 1-line passthroughs to repo.ts.
 Collapse into repo.ts, or split into a use-case layer? Make the call,
-draft a refactor RFC via /to-issues, then hand back.
+draft a refactor RFC via /to-tickets, then hand back.
 
 ## Redacted
 None this session (no keys, no PII).
@@ -876,7 +873,7 @@ None this session (no keys, no PII).
       <p class="section-eyebrow">appendix &mdash; provenance</p>
       <h2 class="section-h2">The corpus this version was <em>hardened against</em>.</h2>
       <p class="section-lede">
-        Earlier drafts of this field manual leaned on the <em>mattpocock/skills</em> README and inferred the rest. This version was checked against Matt&#39;s own video explanations &mdash; <strong>eleven</strong> videos fed into a NotebookLM notebook, then <strong>nineteen</strong> questions asked of that notebook (eight cross-cutting, seven per-video deep-dives, three drilling into the user-added videos, plus one drilling into the only live stream in the corpus) to verify the framing, surface direct quotes, and catch claims the README leaves out. Every &ldquo;Matt says&rdquo; aside on this page traces to a citation in <code>notebook_output.json</code> in the project folder.
+        Earlier drafts of this field manual leaned on the <em>mattpocock/skills</em> README and inferred the rest. This version was checked against Matt&#39;s own video explanations &mdash; <strong>eleven</strong> videos fed into a NotebookLM notebook, then <strong>nineteen</strong> questions asked of that notebook (eight cross-cutting, seven per-video deep-dives, three drilling into the user-added videos, plus one drilling into the only live stream in the corpus) to verify the framing, surface direct quotes, and catch claims the README leaves out. Every &ldquo;Matt says&rdquo; aside on this page traces to a citation in <code>notebook_output.json</code> in the project folder. Separately, on <strong>2026-08-26</strong> every skill name on this page was audited against the upstream repo at <code>6654f6b</code>: <code>/diagnose</code>, <code>/to-prd</code>, <code>/to-issues</code> and <code>/write-a-skill</code> were renamed and have been updated in place; <code>/ubiquitous-language</code>, <code>/zoom-out</code> and <code>/caveman</code> were deleted upstream and their asides rewritten to say so; and <code>/dispatching-parallel-agents</code> turned out never to have existed at all.
       </p>
     </div>
 
@@ -911,7 +908,7 @@ None this session (no keys, no PII).
       </li>
       <li class="further__card">
         <code class="further__name">Burn through the backlog with /triage</code>
-        <p><a href="https://www.youtube.com/watch?v=MzWIIlx0Gpc" target="_blank" rel="noopener">youtube · MzWIIlx0Gpc</a><br>Source for: <code>/triage</code> as full-backlog state-machine, not just bug intake; the label workflow; pairing with <code>/diagnose</code>.</p>
+        <p><a href="https://www.youtube.com/watch?v=MzWIIlx0Gpc" target="_blank" rel="noopener">youtube · MzWIIlx0Gpc</a><br>Source for: <code>/triage</code> as full-backlog state-machine, not just bug intake; the label workflow; pairing with <code>/diagnosing-bugs</code>.</p>
       </li>
       <li class="further__card">
         <code class="further__name">How To De-Slop A Codebase Ruined By AI</code>
@@ -971,7 +968,7 @@ None this session (no keys, no PII).
       <p class="colophon__meta">
         set in <em>Fraunces</em>, <em>Newsreader</em>, and <em>JetBrains Mono</em> &middot; quote-hardened via <em>NotebookLM</em> (<a href="https://github.com/teng-lin/notebooklm-py" target="_blank" rel="noopener">teng-lin/notebooklm-py</a>) against <a href="#provenance">9 of Matt&#39;s videos</a> &middot; not affiliated with Matt Pocock &middot; <a href="#hero">↑ back to top</a>
       </p>
-      <p class="colophon__meta colophon__verified" data-verified-line>verified against <em>mattpocock/skills</em> @ <a href="https://github.com/mattpocock/skills/tree/694fa30311e02c2639942308513555e61ee84a6f" target="_blank" rel="noopener"><code>694fa30</code></a> &middot; 10 videos &middot; last checked 2026-06-16</p>
+      <p class="colophon__meta colophon__verified" data-verified-line>verified against <em>mattpocock/skills</em> @ <a href="https://github.com/mattpocock/skills/tree/6654f6b60cd9d5be8b54c6fafe44346dabeb3b76" target="_blank" rel="noopener"><code>6654f6b</code></a> &middot; 11 videos &middot; last checked 2026-08-26</p>
     </div>
   </footer>
 
